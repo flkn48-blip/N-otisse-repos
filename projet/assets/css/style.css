@@ -360,3 +360,16 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
   .nt-blanc h2::after{width:64px;transition:none}
   .nt-blanc .nt-part img{transition:none}
 }
+
+/* Actualités : fond vert sauge, texte crème */
+.nt-actus-sec{background:#4c5945;color:#f6f1ea}
+.nt-actus-sec h1,.nt-actus-sec h2,.nt-actus-sec h3{color:#f6f1ea}
+.nt-actus-sec .nt-intro,.nt-actus-sec .nt-resume{color:#ece3d6}
+.nt-actus-sec .nt-actu{transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.nt-actus-sec .nt-actu:hover{transform:translateX(10px)}
+.nt-actus-sec .nt-actu .nt-n{color:#ebd3c1}
+.nt-actus-sec .nt-actu .nt-date{color:#d9cdbd}
+.nt-actus-sec .nt-actu details summary{color:#ebd3c1}
+.nt-actus-sec .nt-actu details summary:focus-visible{outline-color:#ebd3c1}
+.nt-actus-sec .nt-corps-actu{color:#f6f1ea}
+@media (prefers-reduced-motion:reduce){.nt-actus-sec .nt-actu{transition:none}.nt-actus-sec .nt-actu:hover{transform:none}}
