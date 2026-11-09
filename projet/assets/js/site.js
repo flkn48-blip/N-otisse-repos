@@ -129,6 +129,11 @@
         var u = urlSure(p.url);
         return u ? '<a class="nt-part" href="' + esc(u) + '" target="_blank" rel="noopener noreferrer" aria-label="' + esc(p.name) + ' (nouvel onglet)">' + logo + '</a>' : '<div class="nt-part" role="img" aria-label="' + esc(p.name) + '">' + logo + '</div>';
       }).join('');
+      $$('.nt-part', z).forEach(function (el, i) { el.style.setProperty('--i', i); });
+      if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { z.classList.add('is-visible'); io.disconnect(); } }); }, { threshold: 0.2 });
+        io.observe(z);
+      } else { z.classList.add('is-visible'); }
     });
   }
 

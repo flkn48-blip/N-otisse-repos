@@ -329,10 +329,11 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .nt-equipe-tete .nt-chapo{margin-bottom:0}
 .nt-equipe{background:#d9cfc0 url('../img/97cc6.jpg') center/cover no-repeat;padding-block:clamp(48px,7vw,96px)}
 .nt-equipe>.nt-in{display:grid;gap:clamp(20px,3vw,36px)}
-.nt-carte{display:grid;align-items:start;gap:clamp(20px,3vw,40px);width:min(100%,780px);background:var(--c-carte);padding:clamp(20px,2.4vw,32px);box-shadow:0 24px 48px -28px rgba(43,33,27,.5)}
+.nt-carte{display:grid;align-items:stretch;gap:clamp(20px,3vw,40px);width:min(100%,780px);background:var(--c-carte);padding:clamp(20px,2.4vw,32px);box-shadow:0 24px 48px -28px rgba(43,33,27,.5)}
 .nt-carte--g{grid-template-columns:clamp(140px,16vw,200px) minmax(0,1fr);justify-self:start}
 .nt-carte--d{grid-template-columns:minmax(0,1fr) clamp(140px,16vw,200px);justify-self:end}
-.nt-portrait{aspect-ratio:1;background:#e9dfd2;border-radius:2px}
+.nt-portrait{background:#e9dfd2;border-radius:2px;min-height:100%;overflow:hidden}
+.nt-portrait img{display:block;width:100%;height:100%;object-fit:cover}
 .nt-carte h3{margin:0 0 10px}
 .nt-carte .nt-role{margin:0 0 6px;font-family:var(--f-nav);font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--c-terra)}
 .nt-carte .nt-bio{font-size:15.5px;line-height:1.6;margin:0 0 10px}
@@ -340,5 +341,22 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 @media (max-width:700px){
   .nt-carte--g,.nt-carte--d{grid-template-columns:1fr;justify-self:stretch}
   .nt-carte--d .nt-portrait{order:-1}
-  .nt-portrait{max-width:200px}
+  .nt-portrait{min-height:0;aspect-ratio:4/3;max-width:none}
+}
+
+/* Partenaires : fond blanc, apparition en cascade, survol vivant */
+.nt-blanc{background:#fff}
+.nt-blanc h2{position:relative;display:inline-block}
+.nt-blanc h2::after{content:'';display:block;height:3px;width:0;margin-top:10px;background:var(--c-bordeaux);border-radius:3px;transition:width .9s cubic-bezier(.2,.7,.2,1) .2s}
+.nt-blanc:has(.nt-parts.is-visible) h2::after{width:64px}
+.nt-blanc .nt-parts{grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:28px}
+.nt-blanc .nt-part{background:#fff;border:1px solid var(--c-ligne);border-radius:20px;min-height:150px;padding:28px;opacity:0;transform:translateY(32px) scale(.97);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1),box-shadow .35s ease,border-color .35s ease;transition-delay:calc(var(--i,0)*.12s),calc(var(--i,0)*.12s),0s,0s}
+.nt-blanc .nt-parts.is-visible .nt-part{opacity:1;transform:none}
+.nt-blanc .nt-part img{filter:grayscale(1);opacity:.78;transition:filter .4s ease,opacity .4s ease,transform .5s cubic-bezier(.2,.7,.2,1)}
+.nt-blanc .nt-part:hover,.nt-blanc .nt-part:focus-visible{transform:translateY(-8px);box-shadow:0 24px 40px -24px rgba(43,33,27,.45);border-color:rgba(138,42,54,.35);transition-delay:0s}
+.nt-blanc .nt-part:hover img,.nt-blanc .nt-part:focus-visible img{filter:none;opacity:1;transform:scale(1.06)}
+@media (prefers-reduced-motion:reduce){
+  .nt-blanc .nt-part{opacity:1;transform:none;transition:none}
+  .nt-blanc h2::after{width:64px;transition:none}
+  .nt-blanc .nt-part img{transition:none}
 }
