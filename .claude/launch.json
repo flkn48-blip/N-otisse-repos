@@ -6,6 +6,12 @@
       "runtimeExecutable": "python",
       "runtimeArgs": ["-m", "http.server", "8123", "--directory", "projet"],
       "port": 8123
+    },
+    {
+      "name": "neotisse-depuis-racine-depot",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "8124"],
+      "port": 8124
     }
   ]
 }

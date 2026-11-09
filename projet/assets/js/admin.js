@@ -24,7 +24,7 @@
     NT.api.session().then(function (s) { if (!s) return vueLogin(); dessinerCadre(s); charger(); }).catch(function (e) { vueLogin(e.message); });
   }
   function dessinerCadre(s) {
-    racine.innerHTML = '<div class="nt-admin"><div class="nt-ad-bar"><div><h1>Espace membres</h1><p class="nt-aide">Connectée : ' + esc(s.email) + '</p></div><div class="nt-btns"><a class="nt-b2" href="../">Voir le site</a><button class="nt-b2" id="deco" type="button">Se déconnecter</button></div></div>' +
+    racine.innerHTML = '<div class="nt-admin"><div class="nt-ad-bar"><div><h1>Espace membres</h1><p class="nt-aide">Connectée : ' + esc(s.email) + '</p></div><div class="nt-btns"><a class="nt-b2" href="../index.html">Voir le site</a><button class="nt-b2" id="deco" type="button">Se déconnecter</button></div></div>' +
       '<div class="nt-onglets" role="tablist" aria-label="Rubriques"></div><div id="zone" aria-live="polite"></div></div>';
     $('#deco').addEventListener('click', function () { NT.api.logout().then(vueLogin); });
   }

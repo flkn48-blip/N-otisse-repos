@@ -1,0 +1,188 @@
+:root{--f-titre:'Cinzel','Cormorant Garamond',Georgia,serif}
+/* Marges latérales conservées : au moins 24px, 5vw en général, 64px maximum */
+:root{--gout:clamp(24px,5vw,64px);--max:1120px}
+
+/* Sections : texte un peu plus petit, espaces verticaux resserrés */
+.nt-s{font-size:16px;padding-top:clamp(56px,7vw,96px);padding-bottom:clamp(56px,7vw,96px)}
+.nt-s:not(.nt-hero) h1,.nt-s h2{font-size:clamp(34px,3.9vw,52px)!important;margin-bottom:clamp(28px,3.4vw,44px)!important}
+.nt-s .nt-intro{font-size:clamp(16px,1.25vw,18px)!important;margin-bottom:clamp(32px,4vw,48px)!important}
+.nt-s .nt-contact-intro{font-size:clamp(17px,1.3vw,19px)!important}
+
+/* Boutons */
+.nt-s a.nt-lien-b,.nt-b .wp-block-button__link{padding:12px 22px!important;font-size:14px!important}
+.nt-form button,.nt-form button:hover,.nt-form button:focus{padding:12px 24px!important;font-size:14px!important}
+
+/* Ateliers */
+.nt-at .nt-at-liste button,.nt-at .nt-at-liste button:hover,.nt-at .nt-at-liste button:focus,.nt-at .nt-at-liste button:active{font-size:clamp(24px,2.4vw,34px)!important;padding:8px 0!important}
+.nt-at .nt-at-detail h3{font-size:clamp(26px,2.5vw,34px)!important}
+.nt-at .nt-at-detail p{font-size:15px!important}
+
+/* Actualités et calendrier */
+/* Fond du calendrier : sable chaud (plus de rose), dans la continuité de la page Équipe et du vert des actualités */
+.nt-s.nt-calendrier{background:radial-gradient(1100px 480px at 88% -8%,rgba(255,255,255,.5),transparent 62%),#efdfc9}
+.nt-s .nt-grille td{height:80px}
+.nt-s .nt-jour{font-size:36px!important}
+.nt-s .nt-mois{font-size:19px!important}
+.nt-actu h3{font-size:24px!important}
+.nt-s .nt-aside h3{font-size:30px!important}
+
+/* Équipe : présentation en 17px */
+.nt-s .nt-bio{font-size:17px!important;line-height:1.6!important}
+
+/* Contact */
+.nt-form input,.nt-form select,.nt-form textarea{font-size:15px!important;padding:11px 13px!important}
+
+/* Pied de page */
+.wp-site-blocks .nt-pied{padding-top:44px;padding-bottom:32px}
+.nt-pied-nom{font-size:28px}
+
+/* Ordinateur uniquement (le mobile garde ses propres réglages) */
+@media (min-width:901px){
+.wp-site-blocks .nt-head{padding-top:8px;padding-bottom:8px}
+.nt-head img{width:52px;height:52px}
+.nt-head .nt-nav a{font-size:15px}
+.nt-head .nt-nav a.nt-nav-cta{font-size:14px}
+}
+@media (min-width:601px){
+.nt-s .nt-membre{width:min(100%,680px)}
+}
+.nt-s.nt-ateliers .nt-in,.nt-s.nt-ateliers .wp-block-columns,.nt-s.nt-ateliers .wp-block-column,.nt-s.nt-ateliers .nt-at,.nt-s.nt-ateliers .nt-at-detail,.nt-s.nt-ateliers .block-editor-block-list__block{position:static!important;transform:none!important;filter:none!important;contain:none!important;perspective:none!important;will-change:auto!important}
+}
+
+/* Accueil : fonds texturés (lin) pour la présentation et « Une médiation par le geste » */
+.nt-s#presentation,.nt-s#geste{background:var(--c-creme) var(--lin) center/cover no-repeat}
+
+/* Cinzel est plus large que l'ancienne police : on rééquilibre la page Ateliers */
+.nt-at{grid-template-columns:minmax(260px,1fr) minmax(0,max-content)!important;gap:clamp(56px,9vw,160px)!important}
+.nt-at .nt-at-detail{max-width:46ch}
+.nt-at .nt-at-detail h3{font-size:clamp(22px,2vw,30px)!important;overflow-wrap:normal!important;word-break:normal!important;hyphens:none!important}
+.nt-at .nt-at-liste button{font-size:clamp(18px,1.7vw,26px)!important;padding:8px 0!important}
+.nt-at .nt-at-liste button::after{font-size:18px}
+@media (max-width:900px){.nt-at{grid-template-columns:1fr!important}}
+
+/* Page Ateliers : phrase d'intro masquée visuellement (reste lisible par les moteurs de recherche et les lecteurs d'écran) */
+.nt-ateliers .nt-chapeau{position:absolute!important;width:1px!important;height:1px!important;margin:-1px!important;padding:0!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+
+
+
+
+/* Accueil : pilules des engagements en variantes du bordeaux (moins de couleurs) */
+.nt-s .nt-pilules .nt-pilule.nt-pilule--1{background:#fffdf8 !important;box-shadow:inset 0 0 0 1px rgba(51,32,26,.12)}
+.nt-s .nt-pilules .nt-pilule.nt-pilule--2{background:#f2d6bf !important}
+.nt-s .nt-pilules .nt-pilule.nt-pilule--3{background:#b3402a !important}
+.nt-s .nt-pilules .nt-pilule--1,.nt-s .nt-pilules .nt-pilule--1 *,.nt-s .nt-pilules .nt-pilule--2,.nt-s .nt-pilules .nt-pilule--2 *{color:#33201a !important}
+.nt-s .nt-pilules .nt-pilule--3,.nt-s .nt-pilules .nt-pilule--3 *{color:#faf4ec !important}
+
+/* Calendrier : photo du matériel en fond, voile crème pour garder la lisibilité */
+.nt-s.nt-calendrier{background:linear-gradient(rgba(250,244,236,.62),rgba(250,244,236,.62)),url('../img/photo-materiel.jpg') center 38%/cover no-repeat !important}
+.nt-s.nt-calendrier .nt-cal-carte{background:rgba(255,253,248,.94) !important;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.nt-s.nt-calendrier h2{color:#33201a !important;text-shadow:0 0 22px rgba(250,244,236,.9)}
+
+/* Page Ateliers : liste cliquable plus discrète (specificite renforcee pour passer aussi dans l'editeur) */
+.nt-s .nt-at .nt-at-liste button,.nt-s .nt-at .nt-at-liste button:hover,.nt-s .nt-at .nt-at-liste button:focus,.nt-s .nt-at .nt-at-liste button:active{font-size:clamp(15px,1.2vw,18px) !important;padding:6px 0 !important;letter-spacing:.04em !important;gap:16px !important}
+.nt-s .nt-at .nt-at-liste button::after{font-size:15px !important}
+.nt-s .nt-at .nt-at-detail h3{font-size:clamp(20px,1.7vw,25px) !important}
+.nt-s .nt-at .nt-at-detail p{font-size:15px !important}
+.nt-s .nt-at{gap:clamp(40px,6vw,96px) !important}
+
+/* Page Ateliers : animations de la liste (apparition decalee, decalage et fleche au survol) */
+@keyframes ntLi{from{opacity:0;transform:translateX(24px)}to{opacity:1;transform:none}}
+.nt-s .nt-at .nt-at-liste li{animation:ntLi .7s cubic-bezier(.2,.7,.2,1) both}
+.nt-s .nt-at .nt-at-liste li:nth-child(2){animation-delay:.08s}
+.nt-s .nt-at .nt-at-liste li:nth-child(3){animation-delay:.16s}
+.nt-s .nt-at .nt-at-liste li:nth-child(4){animation-delay:.24s}
+.nt-s .nt-at .nt-at-liste li:nth-child(5){animation-delay:.32s}
+.nt-s .nt-at .nt-at-liste button{transition:color .25s,transform .3s cubic-bezier(.2,.7,.2,1) !important}
+.nt-s .nt-at .nt-at-liste button:hover{transform:translateX(8px)}
+.nt-s .nt-at .nt-at-liste button:hover::after{opacity:.8 !important;transform:none !important}
+.nt-s .nt-at .nt-at-liste button[aria-selected=true]{transform:translateX(8px)}
+@media (prefers-reduced-motion:reduce){.nt-s .nt-at .nt-at-liste li{animation:none}.nt-s .nt-at .nt-at-liste button{transition:none !important}}
+
+/* Contact : photo de la section d'informations */
+.nt-infos figure.nt-photo{margin:clamp(24px,3vw,36px) 0 0 !important;border-radius:18px;overflow:hidden}
+.nt-infos figure.nt-photo img{display:block;width:100%;height:clamp(200px,26vw,340px);object-fit:cover}
+
+/* Equipe : la photo remplit la colonne de droite et va jusqu'au bord droit de la page */
+.nt-s.nt-suite{overflow-x:clip}
+.nt-s.nt-suite .nt-colonnes{align-items:stretch !important}
+.nt-s.nt-suite .nt-colonnes>.wp-block-column:last-child{display:flex;margin-right:calc(50% - 50vw) !important}
+.nt-s.nt-suite .nt-colonnes>.wp-block-column:last-child figure.nt-photo{flex:1;width:100%;height:auto;min-height:100%;margin:0 !important}
+.nt-s.nt-suite .nt-colonnes>.wp-block-column:last-child figure.nt-photo img{width:100% !important;height:100% !important;min-height:420px;max-height:none !important;object-fit:cover;object-position:center 30%;border-radius:0 !important}
+@media (max-width:781px){
+.nt-s.nt-suite .nt-colonnes>.wp-block-column:last-child{margin-right:0 !important}
+.nt-s.nt-suite .nt-colonnes>.wp-block-column:last-child figure.nt-photo img{height:360px !important;min-height:0;border-radius:0 !important}
+}
+
+/* Fonds lin : texture lin sur toutes les sections sable (site + editeur) */
+.nt-s.nt-s.nt-alt,.nt-s.nt-s.nt-sable,.nt-s.nt-s.nt-final{background:#f0e2cf url(../img/1cd33.jpg) center/cover no-repeat}
+
+/* Ateliers : textes modifiables, vignettes des photos dans l editeur */
+.nt-at-panneau .nt-at-photo{margin:12px 0 28px}
+.nt-at-panneau .nt-at-photo img{width:160px;height:auto;border-radius:8px}
+.nt-at-panneaux>.wp-block-group{margin-bottom:28px}
+
+.nt-infos figure.nt-photo img{object-position:center 48%}
+.nt-form .nt-aide{margin:0 0 8px!important;font-size:14px;line-height:1.45;color:#725a48}
+
+/* Contact : photo + liste (remplace les trois cartes) */
+.nt-infos .nt-infos-cols{gap:clamp(28px,4vw,64px)!important;align-items:flex-start!important;margin-top:clamp(28px,3vw,40px)!important;margin-bottom:0!important}
+.nt-infos .nt-infos-cols figure.nt-photo{margin:0!important;border-radius:18px;overflow:hidden}
+.nt-infos .nt-infos-cols figure.nt-photo img{display:block;width:100%;height:auto!important;aspect-ratio:3/4;object-fit:cover;object-position:center 40%}
+.nt-liste{border-bottom:1px solid #33201a}
+.nt-liste .nt-item{display:grid;grid-template-columns:48px minmax(0,1fr);column-gap:20px;padding:clamp(22px,2.4vw,32px) 0;border-top:1px solid #33201a}
+.nt-liste .nt-n{margin:0!important;padding-top:.6em;font-size:16px;color:#33201a}
+.nt-s .nt-liste h3{font-family:'Manrope',system-ui,sans-serif!important;font-style:normal!important;font-weight:400!important;font-size:clamp(24px,2.4vw,34px)!important;line-height:1.15!important;letter-spacing:-.01em;color:#33201a!important;margin:0 0 12px!important}
+.nt-liste p{margin:0 0 .6em}
+.nt-liste p:last-child,.nt-liste ul{margin-bottom:0}
+.nt-liste ul{padding-left:1.1em}
+.nt-liste li{margin:0 0 .35em}
+.nt-liste a{color:#b3402a!important;text-decoration:underline;text-underline-offset:3px}
+
+/* Mentions légales */
+.nt-s.nt-legal p{max-width:72ch}
+.nt-s.nt-legal h3{font-family:'Manrope',system-ui,sans-serif!important;font-style:normal!important;font-weight:500!important;font-size:clamp(20px,2vw,26px)!important;line-height:1.2!important;margin:2em 0 .5em!important;color:#33201a!important}
+.nt-s.nt-legal a{color:#b3402a!important;text-decoration:underline;text-underline-offset:3px}
+.nt-aremplir{background:#f2d6bf;color:#33201a;padding:0 .3em;border-radius:4px}
+
+/* Contact : liste sans filets */
+.nt-liste{border-bottom:0!important}
+.nt-liste .nt-item{border-top:0!important;padding:0 0 clamp(26px,3vw,40px)!important}
+.nt-liste .nt-item:last-child{padding-bottom:0!important}
+.nt-s.nt-s.nt-legal{background:#fffdf8!important}
+.nt-s.nt-legal ul{max-width:72ch;margin:0 0 1.2em;padding-left:1.2em}
+.nt-s.nt-legal li{margin:0 0 .5em;line-height:1.6}
+
+/* Calendrier : liste des evenements du mois */
+.nt-ev-liste{margin-top:clamp(22px,3vw,34px);padding-top:clamp(18px,2.4vw,28px)}
+.nt-ev-liste ul{list-style:none;margin:0;padding:0;display:grid;gap:16px}
+.nt-ev-liste li{display:flex;gap:14px;align-items:flex-start;margin:0}
+.nt-ev-liste li>div{display:flex;flex-direction:column;gap:2px}
+.nt-ev-liste strong{font-weight:600;color:#33201a}
+.nt-ev-liste span:not(.nt-ev-pt){font-size:15px;color:#725a48}
+.nt-ev-liste a{font-size:14px;color:#b3402a;text-decoration:underline;text-underline-offset:3px}
+.nt-ev-pt{flex:0 0 auto;width:14px;height:14px;border-radius:5px;margin-top:5px;box-shadow:inset 0 0 0 1px rgba(51,32,26,.12)}
+.nt-pt-festival{background:#b3402a}.nt-pt-ateliers{background:#d99a3d}.nt-pt-tissages{background:#e6d3bb}.nt-pt-enfant{background:#e9b9a2}
+.nt-ev-vide{margin:0;font-size:15px;color:#725a48}
+
+/* Menu */
+.nt-head .nt-has-sub{position:relative;display:flex;align-items:center}
+.nt-head .nt-has-sub.is-actif-parent>a{background:rgba(51,32,26,.07)}
+.nt-head .nt-sub-btn,.nt-head .nt-sub-btn:hover,.nt-head .nt-sub-btn:focus,.nt-head .nt-sub-btn:active{all:unset;box-sizing:border-box;cursor:pointer;width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;border-radius:999px;background:transparent!important;background-image:none!important;border:0!important;box-shadow:none!important;color:inherit!important}
+.nt-head .nt-sub-btn:hover{background:rgba(51,32,26,.07)!important}
+.nt-head .nt-sub-btn:focus-visible{outline:2px solid #93501a!important;outline-offset:2px}
+.nt-sub-btn span,.nt-sub-btn span::before,.nt-sub-btn span::after{display:block;width:20px;height:2px;background:#33201a;border-radius:2px;transition:transform .2s}
+.nt-sub-btn span{position:relative}
+.nt-sub-btn span::before,.nt-sub-btn span::after{content:'';position:absolute;left:0}
+.nt-sub-btn span::before{top:-6px}.nt-sub-btn span::after{top:6px}
+.nt-has-sub.is-open .nt-sub-btn span{background:transparent}
+.nt-has-sub.is-open .nt-sub-btn span::before{transform:translateY(6px) rotate(45deg)}
+.nt-has-sub.is-open .nt-sub-btn span::after{transform:translateY(-6px) rotate(-45deg)}
+.nt-head .nt-sub{display:none;position:absolute;top:calc(100% + 8px);right:0;min-width:190px;margin:0;padding:8px;list-style:none;background:#faf4ec;border:1px solid rgba(51,32,26,.12);border-radius:16px;box-shadow:0 22px 40px -22px rgba(51,32,26,.55);z-index:110}
+.nt-head .nt-has-sub.is-open>.nt-sub{display:block}
+.nt-head .nt-sub li{margin:0;padding:0;list-style:none}
+.nt-head .nt-sub a{display:block;border-radius:10px!important;white-space:nowrap}
+@media (max-width:900px){
+.nt-head .nt-has-sub{display:block}
+.nt-head .nt-sub-btn{display:none!important}
+.nt-head .nt-sub{display:block;position:static;min-width:0;box-shadow:none;border:0;background:transparent;padding:0 0 0 18px}
+}
