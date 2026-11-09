@@ -1,3 +1,4 @@
+/* Néotisse — comportements du site public. */
 (function () {
   'use strict';
   function $(s, r) { return (r || document).querySelector(s); }
@@ -10,7 +11,7 @@
   function periode(e) { if (!e.end_date || e.end_date === e.start_date) return dateFr(e.start_date); return 'Du ' + dateFr(e.start_date) + ' au ' + dateFr(e.end_date); }
   function etoiles(n) { n = Math.max(0, Math.min(5, n | 0)); var s = ''; for (var i = 0; i < 5; i++) s += i < n ? '★' : '<i>★</i>'; return '<span class="nt-et" role="img" aria-label="Note : ' + n + ' sur 5">' + s + '</span>'; }
   window.NTU = { esc: esc, urlSure: urlSure, dateFr: dateFr, periode: periode, etoiles: etoiles, paragraphes: paragraphes, MOIS: MOIS };
- 
+
   /* ----- Commun ----- */
   function commun() {
     var h = $('.nt-head');
@@ -40,7 +41,7 @@
       p.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); p.click(); } });
     });
   }
- 
+
   /* ----- Ateliers ----- */
   function ateliers() {
     var btns = $$('.nt-at-liste button'), panneaux = $$('.nt-at-detail');
@@ -51,7 +52,7 @@
     btns.forEach(function (b, i) { b.addEventListener('click', function () { choisir(i); }); });
     choisir(0);
   }
- 
+
   /* ----- Calendrier ----- */
   var TYPES = { festival: 'Festival d’archéologie expérimentale', ateliers: 'Ateliers explicatifs, démonstratifs, participatifs', tissages: 'Tissages', enfant: 'Atelier enfant' };
   function boutonResa(e) {
@@ -106,7 +107,7 @@
     $('#cal-legende').innerHTML = Object.keys(TYPES).map(function (k) { return '<li><span class="nt-pt nt-t-' + k + '"></span>' + esc(TYPES[k]) + '</li>'; }).join('');
     NT.api.events().then(function (r) { evts = r || []; dessiner(); }).catch(function () { $('#cal-liste').innerHTML = '<p class="nt-ev-vide">Le calendrier est momentanément indisponible. Écrivez-nous à asso.neotisse@gmail.com.</p>'; });
   }
- 
+
   /* ----- Actualités ----- */
   function actualites() {
     var z = $('#actus'); if (!z) return;
@@ -118,7 +119,7 @@
       }).join('');
     }).catch(function () { z.innerHTML = '<p class="nt-ev-vide">Les actualités sont momentanément indisponibles.</p>'; });
   }
- 
+
   /* ----- Partenaires (page Équipe) ----- */
   function partenaires() {
     var z = $('#parts'); if (!z) return;
@@ -130,7 +131,7 @@
       }).join('');
     });
   }
- 
+
   /* ----- Livre d'or ----- */
   var PAS = 4;
   function livre() {
@@ -149,7 +150,7 @@
     }
     $('#lv-plus button').addEventListener('click', function () { visibles += PAS; dessiner(); });
     NT.api.reviewsPublished().then(function (r) { avis = r || []; dessiner(); }).catch(function () { mur.innerHTML = '<p class="nt-lv-vide">Les avis sont momentanément indisponibles.</p>'; });
- 
+
     var ouvrir = $('#lv-ouvrir'), form = $('#lv-form');
     ouvrir.addEventListener('click', function () {
       var ferme = form.hidden; form.hidden = !ferme; ouvrir.setAttribute('aria-expanded', ferme ? 'true' : 'false');
@@ -175,7 +176,7 @@
         .catch(function () { bt.disabled = false; dire('Une erreur est survenue. Merci de réessayer.', 'is-err'); });
     });
   }
- 
+
   /* ----- Contact ----- */
   function contact() {
     var form = $('#form-contact'); if (!form) return;
@@ -198,17 +199,16 @@
         .catch(function () { envoi.disabled = false; dire('L’envoi n’a pas abouti. Vous pouvez écrire directement à asso.neotisse@gmail.com.', 'is-err'); });
     });
   }
- 
+
   function init() {
     commun();
-    var p = document.body.getAttribute('data-page');
-    if (p === 'ateliers') ateliers();
-    if (p === 'calendrier') { calendrier(); }
-    if (p === 'actualites') actualites();
-    if (p === 'equipe') partenaires();
-    if (p === 'livre-dor') livre();
-    if (p === 'contact') contact();
+    if (document.body.getAttribute('data-page') === 'admin') return;
+    if ($('.nt-at')) ateliers();
+    if ($('#cal')) calendrier();
+    if ($('#actus')) actualites();
+    if ($('#parts')) partenaires();
+    if ($('#lv-mur')) livre();
+    if ($('#form-contact')) contact();
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();
- 

@@ -1,3 +1,4 @@
+/* Néotisse — feuille de style unique. Design repris à l'identique de la version WordPress. */
 :root{--c-creme:#f6f1ea;--c-sable:#ece3d6;--c-carte:#fffdf9;--c-encre:#2b211b;--c-texte:#4a3d34;--c-doux:#7a6a5d;--c-terra:#b8613f;--c-bordeaux:#8a2a36;--c-poudre:#ebd3c1;--c-ligne:rgba(43,33,27,.12);--lin:url('../img/1cd33.jpg');--f-titre:'Cinzel','Cormorant Garamond',Georgia,serif;--f-cit:'Cormorant Garamond',Georgia,serif;--f-texte:'Manrope',system-ui,sans-serif;--f-nav:'Inter',system-ui,sans-serif;--gout:clamp(24px,5vw,64px);--max:1120px}
 [hidden]{display:none!important}
 *,*::before,*::after{box-sizing:border-box}
@@ -9,7 +10,7 @@ a{color:inherit}
 .skip{position:absolute;left:-999px;top:8px;background:var(--c-bordeaux);color:#fff;padding:10px 16px;border-radius:999px;z-index:300}
 .skip:focus{left:12px}
 a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,.nt-pilule:focus-visible{outline:2px solid var(--c-terra);outline-offset:3px}
- 
+
 /* En-tête */
 .nt-head{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:8px var(--gout);background:rgba(246,241,234,.9);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--c-ligne)}
 .nt-head .nt-logo img{width:52px;height:52px;object-fit:contain;display:block}
@@ -36,8 +37,9 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .nt-head.is-open .nt-burger span{background:transparent}
 .nt-head.is-open .nt-burger span::before{transform:translateY(6px) rotate(45deg)}
 .nt-head.is-open .nt-burger span::after{transform:translateY(-6px) rotate(-45deg)}
- 
+
 /* Sections */
+.nt-pg{scroll-margin-top:80px}
 .nt-s{padding:clamp(56px,7vw,96px) var(--gout);scroll-margin-top:80px}
 .nt-s>.nt-in{max-width:var(--max);margin:0 auto}
 .nt-s p{margin:0 0 1em}
@@ -49,7 +51,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .nt-chapo{font-size:clamp(18px,1.5vw,21px);line-height:1.6;max-width:62ch}
 .nt-intro{font-size:clamp(16px,1.25vw,18px);max-width:70ch;margin-bottom:clamp(28px,3vw,40px)!important}
 .nt-aide{font-size:14px;line-height:1.45;color:var(--c-doux)}
- 
+
 /* Boutons */
 .nt-btns{display:flex;flex-wrap:wrap;gap:12px}
 .nt-b,.nt-b2{display:inline-flex;align-items:center;font-family:var(--f-texte);font-weight:600;font-size:14px;line-height:1.2;padding:12px 22px;border-radius:999px;background:var(--c-bordeaux);color:#fff;border:1px solid var(--c-bordeaux);text-decoration:none;cursor:pointer;transition:transform .2s,box-shadow .2s,background .2s,color .2s}
@@ -57,7 +59,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .nt-b2{background:transparent;color:var(--c-encre);border-color:currentColor}
 .nt-b2:hover{background:var(--c-encre);color:#fff}
 .nt-b[disabled]{opacity:.6;cursor:wait;transform:none}
- 
+
 /* Accueil */
 .nt-hero{position:relative;padding:0;min-height:min(86vh,760px);display:flex;align-items:flex-end;background:var(--c-sable);overflow:hidden}
 .nt-hero>.nt-hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 40%}
@@ -83,7 +85,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .nt-final{text-align:center}
 .nt-final .nt-in{max-width:760px}
 .nt-final p{margin:0 auto 28px}
- 
+
 /* Ateliers */
 .nt-at{display:grid;grid-template-columns:minmax(240px,1fr) minmax(0,1.4fr);gap:clamp(40px,6vw,96px);align-items:start}
 .nt-at-liste{list-style:none;margin:0;padding:0}
@@ -97,7 +99,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .nt-at-detail[hidden]{display:none}
 .nt-at-detail img{width:100%;max-width:420px;aspect-ratio:4/3;object-fit:cover;border-radius:18px;display:block;margin:0 0 20px}
 .nt-at-detail p{font-size:15px}
- 
+
 /* Équipe */
 .nt-equipe-photo{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:clamp(28px,4vw,64px);align-items:stretch}
 .nt-membre{margin:0 0 clamp(36px,4vw,56px);max-width:680px}
@@ -108,7 +110,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .nt-part{display:flex;align-items:center;justify-content:center;background:var(--c-carte);border-radius:16px;padding:22px;min-height:120px;text-decoration:none}
 .nt-part img{max-width:100%;max-height:84px;object-fit:contain;display:block}
 .nt-part span{font-weight:600;color:var(--c-encre);text-align:center}
- 
+
 /* Calendrier */
 .nt-calendrier{background:linear-gradient(rgba(246,241,234,.62),rgba(246,241,234,.62)),url('../img/photo-materiel.jpg') center 38%/cover no-repeat}
 .nt-cal-carte{background:rgba(255,253,249,.94);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);border-radius:28px;padding:clamp(20px,3vw,36px)}
@@ -140,7 +142,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .nt-ev-vide{margin:0;font-size:15px;color:var(--c-doux)}
 .nt-resa{display:inline-flex;align-self:flex-start;margin-top:6px;font-size:14px}
 .nt-resa-note{font-size:13px;color:var(--c-doux)}
- 
+
 /* Actualités */
 .nt-actus{display:grid;gap:0}
 .nt-actu{display:grid;grid-template-columns:56px minmax(0,1fr);column-gap:20px;padding:26px 0}
@@ -151,7 +153,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .nt-actu details summary{cursor:pointer;color:var(--c-bordeaux);font-weight:600;font-size:14px}
 .nt-actu .nt-corps-actu{margin-top:12px;max-width:68ch}
 .nt-actu img{width:100%;max-width:420px;border-radius:14px;margin-top:14px;display:block}
- 
+
 /* Livre d'or */
 .nt-livre{font-size:16px}
 .nt-lv-tete{display:flex;flex-wrap:wrap;gap:16px 32px;align-items:center;justify-content:space-between;margin-bottom:clamp(24px,3vw,40px)}
@@ -195,7 +197,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .nt-msg.is-err{color:#a5192b}.nt-msg.is-ok{color:#2f5d2a;font-weight:600}
 .nt-lv-form.is-envoye>*:not(.nt-msg){display:none}
 .nt-lv-form .nt-b{justify-self:start;grid-column:1/-1}
- 
+
 /* Contact */
 .nt-contact{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(32px,5vw,72px);align-items:start}
 .nt-form-contact{display:grid;gap:18px;background:var(--c-carte);border-radius:28px;padding:clamp(24px,3vw,38px);box-shadow:0 36px 60px -40px rgba(43,33,27,.6)}
@@ -215,7 +217,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .nt-s .nt-liste h3{font-family:var(--f-texte);font-weight:400;font-size:clamp(22px,2.2vw,30px);letter-spacing:-.01em;margin:0 0 12px}
 .nt-liste p{margin:0 0 .6em}.nt-liste ul{padding-left:1.1em;margin:0}.nt-liste li{margin:0 0 .35em}
 .nt-liste a{color:var(--c-bordeaux);text-decoration:underline;text-underline-offset:3px}
- 
+
 /* Pages légales */
 .nt-legal{background:var(--c-carte)}
 .nt-legal p,.nt-legal ul{max-width:72ch}
@@ -223,7 +225,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .nt-legal ul{padding-left:1.2em}.nt-legal li{margin:0 0 .5em}
 .nt-legal a{color:var(--c-bordeaux);text-decoration:underline;text-underline-offset:3px}
 .nt-aremplir{background:var(--c-poudre);color:var(--c-encre);padding:0 .3em;border-radius:4px}
- 
+
 /* Pied de page */
 .nt-pied{background:var(--c-sable) var(--lin) center/cover;color:var(--c-texte);font-size:15px;padding:44px var(--gout) 32px;border-top:1px solid var(--c-ligne)}
 .nt-pied-in{max-width:var(--max);margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:32px}
@@ -232,10 +234,10 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .nt-pied a{color:var(--c-encre);text-decoration:none}.nt-pied a:hover{color:var(--c-terra)}
 .nt-pied nav{display:flex;flex-direction:column;gap:8px;font-family:var(--f-nav);font-weight:300}
 .nt-espace{font-size:13px;opacity:.7}
- 
+
 /* Bandeau démonstration */
 .nt-demo{background:var(--c-poudre);color:var(--c-encre);text-align:center;font-size:13px;padding:8px var(--gout)}
- 
+
 /* Administration */
 .nt-admin{max-width:980px;margin:0 auto;padding:clamp(28px,4vw,56px) var(--gout)}
 .nt-admin h1{font-family:var(--f-titre);text-transform:uppercase;font-weight:400;font-size:clamp(28px,3.4vw,40px);margin:0 0 8px}
@@ -259,7 +261,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .nt-ad-form{background:var(--c-carte);border-radius:20px;padding:24px;margin:0 0 24px;display:grid;grid-template-columns:1fr 1fr;gap:16px 18px}
 .nt-ad-form .large{grid-column:1/-1}
 .nt-login{max-width:420px;margin:clamp(40px,8vw,100px) auto;background:var(--c-carte);border-radius:24px;padding:32px;display:grid;gap:16px}
- 
+
 @media (max-width:900px){
 .nt-burger{display:inline-flex}
 .nt-nav{position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:2px;padding:12px var(--gout) 20px;background:var(--c-creme);border-bottom:1px solid var(--c-ligne);display:none}
@@ -282,4 +284,3 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .nt-av:nth-child(n){transform:none}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
- 
