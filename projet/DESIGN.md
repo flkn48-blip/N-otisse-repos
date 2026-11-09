@@ -25,4 +25,4 @@ Palette utilisée sur la version WordPress : crème
 #4c5945.
 Textures de lin ou de trame sobres, sans fleurs ni plantes. Boutons en forme de pilule bordeaux.
 Ne pas mettre de longs traits de séparation (aspect « cliché IA »). Pas de dégradés criards, pas d'emojis dans l'interface.
-Typographies : titres en Cinzel pour l'instant, texte en Manrope.
+Typographies : titres en Cinzel, texte en Manrope.
