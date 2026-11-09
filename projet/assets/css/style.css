@@ -87,7 +87,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .nt-final p{margin:0 auto 28px}
 
 /* Ateliers */
-.nt-at{display:grid;grid-template-columns:minmax(240px,1fr) minmax(0,1.4fr);gap:clamp(40px,6vw,96px);align-items:start}
+.nt-at{display:grid;grid-template-columns:minmax(240px,1fr) minmax(0,1.4fr);gap:clamp(40px,6vw,96px);align-items:center}
 .nt-at-liste{list-style:none;margin:0;padding:0}
 .nt-at-liste li{margin:0}
 .nt-at-liste button{all:unset;box-sizing:border-box;display:flex;width:100%;align-items:center;justify-content:space-between;gap:16px;cursor:pointer;padding:8px 0;font-family:var(--f-titre);font-size:clamp(16px,1.4vw,20px);letter-spacing:.04em;color:var(--c-doux);transition:color .25s}
@@ -105,7 +105,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .nt-membre{margin:0 0 clamp(36px,4vw,56px);max-width:680px}
 .nt-membre .nt-role{font-family:var(--f-nav);font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--c-terra);margin:0 0 6px}
 .nt-bio{font-size:17px;line-height:1.6}
-.nt-photo-colonne img{width:100%;height:100%;min-height:420px;object-fit:cover;object-position:center 30%;border-radius:18px;display:block}
+.nt-photo-colonne{display:flex}
+.nt-photo-colonne img{width:100%;height:100%;min-height:420px;object-fit:cover;object-position:center 30%;border-radius:0;display:block}
 .nt-parts{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:20px;margin-top:24px}
 .nt-part{display:flex;align-items:center;justify-content:center;background:var(--c-carte);border-radius:16px;padding:22px;min-height:120px;text-decoration:none}
 .nt-part img{max-width:100%;max-height:84px;object-fit:contain;display:block}
@@ -284,3 +285,60 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .nt-av:nth-child(n){transform:none}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+
+/* Ateliers : mouvement marqué du sélecteur */
+@keyframes ntLi{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:none}}
+@keyframes ntDet{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.nt-at-liste li{animation:ntLi .8s cubic-bezier(.2,.7,.2,1) both}
+.nt-at-liste li:nth-child(2){animation-delay:.1s}.nt-at-liste li:nth-child(3){animation-delay:.2s}.nt-at-liste li:nth-child(4){animation-delay:.3s}.nt-at-liste li:nth-child(5){animation-delay:.4s}
+.nt-at-liste button{padding:10px 0;transition:color .25s,transform .4s cubic-bezier(.2,.7,.2,1),letter-spacing .4s}
+.nt-at-liste button::after{font-size:22px;transform:translateX(-24px);transition:opacity .3s,transform .4s cubic-bezier(.2,.7,.2,1)}
+.nt-at-liste button:hover,.nt-at-liste button[aria-selected=true]{transform:translateX(22px);letter-spacing:.075em}
+.nt-at-liste button:hover::after,.nt-at-liste button[aria-selected=true]::after{opacity:1;transform:none}
+.nt-at-liste button[aria-selected=true]{color:var(--c-bordeaux)}
+.nt-at-detail:not([hidden]){animation:ntDet .55s cubic-bezier(.2,.7,.2,1) both}
+@media (max-width:900px){.nt-at{grid-template-columns:1fr;align-items:start}.nt-at-liste button:hover,.nt-at-liste button[aria-selected=true]{transform:translateX(10px)}}
+@media (prefers-reduced-motion:reduce){.nt-at-liste li,.nt-at-detail:not([hidden]){animation:none}.nt-at-liste button,.nt-at-liste button::after{transition:none}}
+
+/* Ateliers : fond vert, photo à gauche, texte au centre, liste à droite */
+.nt-vert{--c-vert:#4c5945;background:var(--c-vert);color:#f6f1ea}
+.nt-vert .nt-in{max-width:1240px}
+.nt-vert .nt-at{grid-template-columns:minmax(220px,1fr) minmax(0,2.4fr);gap:clamp(32px,5vw,80px);align-items:center}
+.nt-vert .nt-at-liste{grid-column:1;grid-row:1}
+.nt-vert .nt-at>div{grid-column:2;grid-row:1}
+.nt-vert .nt-at-liste button{color:rgba(246,241,234,.62);font-size:clamp(15px,1.3vw,19px);text-transform:uppercase}
+.nt-vert .nt-at-liste button:hover,.nt-vert .nt-at-liste button[aria-selected=true]{color:#f6f1ea}
+.nt-vert .nt-at-detail{max-width:none}
+.nt-vert .nt-at-detail:not([hidden]){display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.95fr);grid-template-rows:1fr auto auto auto 1fr;column-gap:clamp(28px,4vw,64px)}
+.nt-vert .nt-at-detail img{grid-column:2;grid-row:1/-1;width:100%;max-width:none;height:100%;min-height:420px;max-height:600px;aspect-ratio:3/4;object-fit:cover;border-radius:28px;margin:0}
+.nt-vert .nt-at-detail h3{grid-column:1;grid-row:2;font-family:var(--f-titre);font-weight:400;text-transform:uppercase;letter-spacing:.03em;font-size:clamp(20px,2vw,28px);color:#f6f1ea;margin:0 0 16px}
+.nt-vert .nt-at-detail p{grid-column:1;grid-row:3;color:rgba(246,241,234,.86);margin:0 0 28px;max-width:44ch}
+.nt-vert .nt-at-detail .nt-b{grid-column:1;grid-row:4;justify-self:start;background:#f4efe8;color:#2b211b;border-color:#f4efe8}
+.nt-vert .nt-at-detail .nt-b:hover{background:#fff}
+@media (max-width:900px){
+  .nt-vert .nt-at{grid-template-columns:1fr}
+  .nt-vert .nt-at-liste,.nt-vert .nt-at>div{grid-column:1}
+  .nt-vert .nt-at>div{grid-row:2}
+  .nt-vert .nt-at-detail:not([hidden]){grid-template-columns:1fr;grid-template-rows:none;row-gap:4px}
+  .nt-vert .nt-at-detail img,.nt-vert .nt-at-detail h3,.nt-vert .nt-at-detail p,.nt-vert .nt-at-detail .nt-b{grid-column:1;grid-row:auto}
+  .nt-vert .nt-at-detail img{min-height:0;aspect-ratio:4/3;margin-bottom:24px!important}
+}
+
+/* Équipe : photo de fond et deux cartes décalées */
+.nt-equipe-tete{padding-bottom:clamp(28px,3vw,40px)}
+.nt-equipe-tete .nt-chapo{margin-bottom:0}
+.nt-equipe{background:#d9cfc0 url('../img/97cc6.jpg') center/cover no-repeat;padding-block:clamp(48px,7vw,96px)}
+.nt-equipe>.nt-in{display:grid;gap:clamp(20px,3vw,36px)}
+.nt-carte{display:grid;align-items:start;gap:clamp(20px,3vw,40px);width:min(100%,780px);background:var(--c-carte);padding:clamp(20px,2.4vw,32px);box-shadow:0 24px 48px -28px rgba(43,33,27,.5)}
+.nt-carte--g{grid-template-columns:clamp(140px,16vw,200px) minmax(0,1fr);justify-self:start}
+.nt-carte--d{grid-template-columns:minmax(0,1fr) clamp(140px,16vw,200px);justify-self:end}
+.nt-portrait{aspect-ratio:1;background:#e9dfd2;border-radius:2px}
+.nt-carte h3{margin:0 0 10px}
+.nt-carte .nt-role{margin:0 0 6px;font-family:var(--f-nav);font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--c-terra)}
+.nt-carte .nt-bio{font-size:15.5px;line-height:1.6;margin:0 0 10px}
+.nt-carte .nt-bio:last-child{margin-bottom:0}
+@media (max-width:700px){
+  .nt-carte--g,.nt-carte--d{grid-template-columns:1fr;justify-self:stretch}
+  .nt-carte--d .nt-portrait{order:-1}
+  .nt-portrait{max-width:200px}
+}
