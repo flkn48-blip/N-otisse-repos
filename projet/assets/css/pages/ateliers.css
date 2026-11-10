@@ -1,16 +1,16 @@
 html{scroll-behavior:smooth}
 header.wp-block-template-part,.wp-site-blocks>header,footer.wp-block-template-part,.wp-site-blocks>footer{display:none!important}
 .wp-site-blocks>main{margin-top:0!important;padding-top:0!important}
-:root{--c-creme:#faf4ec;--c-sable:#f0e2cf;--c-carte:#fffdf8;--c-encre:#33201a;--c-texte:#56402f;--c-doux:#725a48;--c-terra:#93501a;--c-bordeaux:#b3402a;--c-brun:#5a3a28;--c-fond-ateliers:#5a3a28;--c-ligne:rgba(51,32,26,.12);--lin:url('../../img/1cd33.jpg');--f-titre:'Cormorant Garamond',Georgia,serif;--f-texte:'Manrope',system-ui,sans-serif;--f-nav:'Inter',system-ui,sans-serif;--gout:clamp(20px,5vw,72px);--max:1200px}
-.wp-site-blocks .nt-head{position:sticky;top:0;z-index:100;display:flex!important;align-items:center;justify-content:space-between;gap:24px;padding:10px var(--gout);margin:0!important;background:rgba(250,244,236,.9);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--c-ligne)}
+:root{--c-creme:#f6f1ea;--c-sable:#ece3d6;--c-carte:#fffdf9;--c-encre:#2b211b;--c-texte:#4a3d34;--c-doux:#7a6a5d;--c-terra:#b8613f;--c-bordeaux:#8a2a36;--c-brun:#6e3927;--c-fond-ateliers:#4c5945;--c-ligne:rgba(43,33,27,.12);--lin:url('../../img/1cd33.jpg');--f-titre:'Cormorant Garamond',Georgia,serif;--f-texte:'Manrope',system-ui,sans-serif;--f-nav:'Inter',system-ui,sans-serif;--gout:clamp(20px,5vw,72px);--max:1200px}
+.wp-site-blocks .nt-head{position:sticky;top:0;z-index:100;display:flex!important;align-items:center;justify-content:space-between;gap:24px;padding:10px var(--gout);margin:0!important;background:rgba(246,241,234,.9);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--c-ligne)}
 .admin-bar .nt-head{top:32px}
 .nt-head figure{margin:0!important}
 .nt-head img{width:60px;height:60px;object-fit:contain;display:block}
 .nt-nav{display:flex;align-items:center;gap:4px}
 .nt-head .nt-nav a{font-family:var(--f-nav);font-weight:300;font-size:16px;color:var(--c-encre)!important;text-decoration:none!important;padding:8px 14px;border-radius:999px;transition:background .2s}
-.nt-head .nt-nav a:hover,.nt-head .nt-nav a.is-actif{background:rgba(51,32,26,.07)}
+.nt-head .nt-nav a:hover,.nt-head .nt-nav a.is-actif{background:rgba(43,33,27,.07)}
 .nt-head .nt-nav a.nt-nav-cta{font-family:var(--f-texte);font-weight:600;font-size:15px;background:var(--c-bordeaux);color:#fff!important;margin-left:10px}
-.nt-head .nt-nav a.nt-nav-cta:hover{background:#8f3220}
+.nt-head .nt-nav a.nt-nav-cta:hover{background:#72212c}
 .nt-head button.nt-burger,.nt-head button.nt-burger:hover,.nt-head button.nt-burger:focus{all:unset;display:none;cursor:pointer;width:44px;height:44px;align-items:center;justify-content:center;border-radius:999px;background:transparent!important;box-shadow:none!important}
 .nt-burger span,.nt-burger span::before,.nt-burger span::after{display:block;width:20px;height:2px;background:var(--c-encre);border-radius:2px;transition:transform .25s}
 .nt-burger span{position:relative}
@@ -27,10 +27,10 @@ header.wp-block-template-part,.wp-site-blocks>header,footer.wp-block-template-pa
 .nt-s h1,.nt-s h2{font-family:var(--f-titre)!important;font-weight:300!important;font-size:clamp(40px,4.6vw,62px)!important;line-height:1!important;letter-spacing:.02em!important;text-transform:uppercase;color:var(--c-encre)!important;margin:0 0 clamp(36px,4vw,56px)!important}
 .nt-s h3{font-family:var(--f-titre)!important;font-weight:500!important;color:var(--c-encre)!important}
 .nt-s a.nt-lien-b{display:inline-flex;align-items:center;font-family:var(--f-texte)!important;font-weight:600!important;font-size:15px!important;line-height:1.2!important;padding:14px 26px!important;border-radius:999px!important;background:var(--c-bordeaux)!important;color:#fff!important;border:1px solid var(--c-bordeaux)!important;text-decoration:none!important;transition:transform .2s,box-shadow .2s,background .2s,color .2s}
-.nt-s a.nt-lien-b:hover{transform:translateY(-2px);box-shadow:0 10px 24px -10px rgba(179,64,42,.6)}
-.nt-s.nt-ateliers{display:block;min-height:calc(100vh - 80px);padding-top:clamp(32px,4vw,56px);padding-bottom:clamp(40px,5vw,72px);background:var(--c-fond-ateliers);color:rgba(250,244,236,.88)}
+.nt-s a.nt-lien-b:hover{transform:translateY(-2px);box-shadow:0 10px 24px -10px rgba(138,42,54,.6)}
+.nt-s.nt-ateliers{display:block;min-height:calc(100vh - 80px);padding-top:clamp(32px,4vw,56px);padding-bottom:clamp(40px,5vw,72px);background:var(--c-fond-ateliers);color:rgba(246,241,234,.88)}
 .nt-s.nt-ateliers h1{color:var(--c-creme)!important;margin:0 0 12px!important}
-.nt-ateliers .nt-chapeau{max-width:62ch;margin:0 0 24px!important;font-size:16px;line-height:1.6;color:rgba(250,244,236,.82)}
+.nt-ateliers .nt-chapeau{max-width:62ch;margin:0 0 24px!important;font-size:16px;line-height:1.6;color:rgba(246,241,234,.82)}
 .nt-ateliers .nt-cols{display:flex;flex-wrap:nowrap;gap:clamp(28px,4vw,64px);align-items:stretch;margin:0!important}
 .nt-ateliers .nt-cols>.wp-block-column{margin:0!important;min-width:0}
 .nt-ateliers .nt-col-img{flex:0 0 clamp(240px,32%,440px)!important}
@@ -40,7 +40,7 @@ header.wp-block-template-part,.wp-site-blocks>header,footer.wp-block-template-pa
 .nt-at{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:clamp(32px,5vw,72px);align-items:center}
 .nt-at-detail{display:block}
 .nt-at .nt-at-detail h3{font-size:clamp(30px,2.8vw,40px)!important;line-height:1.05!important;color:var(--c-creme)!important;margin:0 0 12px!important}
-.nt-at .nt-at-detail p{font-size:16px!important;line-height:1.65;color:rgba(250,244,236,.85)!important;margin:0 0 24px!important}
+.nt-at .nt-at-detail p{font-size:16px!important;line-height:1.65;color:rgba(246,241,234,.85)!important;margin:0 0 24px!important}
 .nt-at-panneau[hidden]{display:none!important}
 .nt-at-anim .nt-at-panneaux{animation:ntFondu .45s ease}
 .nt-img-anim img{animation:ntImg .45s ease}
@@ -48,12 +48,12 @@ header.wp-block-template-part,.wp-site-blocks>header,footer.wp-block-template-pa
 @keyframes ntImg{from{opacity:0}to{opacity:1}}
 .nt-s .nt-at-liste,.nt-s .nt-at-liste li{list-style:none!important;margin:0!important;padding:0!important;border:0!important;box-shadow:none!important;background:none!important;background-image:none!important;outline:0!important}
 .nt-s .nt-at-liste li::before,.nt-s .nt-at-liste li::after{content:none!important;display:none!important}
-.nt-at .nt-at-liste button,.nt-at .nt-at-liste button:hover,.nt-at .nt-at-liste button:focus,.nt-at .nt-at-liste button:active{all:unset;box-sizing:border-box;display:flex;width:100%;justify-content:space-between;align-items:center;gap:24px;white-space:nowrap;cursor:pointer;padding:9px 0!important;background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;font-family:var(--f-titre)!important;font-weight:400!important;font-size:clamp(26px,2.7vw,38px)!important;line-height:1.15!important;letter-spacing:0!important;text-transform:none!important;color:rgba(250,244,236,.62)!important;transition:color .25s}
-.nt-at .nt-at-liste button:focus-visible{outline:2px solid #f2d6bf!important;outline-offset:4px}
+.nt-at .nt-at-liste button,.nt-at .nt-at-liste button:hover,.nt-at .nt-at-liste button:focus,.nt-at .nt-at-liste button:active{all:unset;box-sizing:border-box;display:flex;width:100%;justify-content:space-between;align-items:center;gap:24px;white-space:nowrap;cursor:pointer;padding:9px 0!important;background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;font-family:var(--f-titre)!important;font-weight:400!important;font-size:clamp(26px,2.7vw,38px)!important;line-height:1.15!important;letter-spacing:0!important;text-transform:none!important;color:rgba(246,241,234,.62)!important;transition:color .25s}
+.nt-at .nt-at-liste button:focus-visible{outline:2px solid #efc3a8!important;outline-offset:4px}
 .nt-at .nt-at-liste button::after{content:'\2192';font-family:var(--f-texte);font-size:20px;opacity:0;transform:translateX(-8px);transition:opacity .25s,transform .25s}
-.nt-at .nt-at-liste button:hover{color:rgba(250,244,236,.85)!important}
+.nt-at .nt-at-liste button:hover{color:rgba(246,241,234,.85)!important}
 .nt-at .nt-at-liste button[aria-selected=true]{color:var(--c-creme)!important}
-.nt-at .nt-at-liste button[aria-selected=true]::after{opacity:1;transform:none;color:#f2d6bf}
+.nt-at .nt-at-liste button[aria-selected=true]::after{opacity:1;transform:none;color:#efc3a8}
 .nt-s.nt-ateliers a.nt-lien-b{background:var(--c-creme)!important;color:var(--c-fond-ateliers)!important;border-color:var(--c-creme)!important}
 .nt-s.nt-ateliers a.nt-lien-b:hover{background:#fff!important;box-shadow:0 10px 24px -10px rgba(0,0,0,.45)}
 .nt-s .nt-lien-b .wp-block-button__link{display:inline-flex;align-items:center;font-family:var(--f-texte)!important;font-weight:600!important;font-size:15px!important;line-height:1.2!important;padding:14px 26px!important;border-radius:999px!important;background:var(--c-bordeaux)!important;color:#fff!important;border:1px solid var(--c-bordeaux)!important;text-decoration:none!important;transition:transform .2s,box-shadow .2s,background .2s,color .2s}
