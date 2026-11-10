@@ -14,7 +14,7 @@ Pages et design	HTML, CSS, JavaScript
 Base de données et comptes	Supabase (avis, événements, actualités, partenaires)
 Formulaire de contact	Netlify Forms
 Hébergement	Netlify
-Polices	Google Fonts (Cinzel, Manrope)
+Polices	Hébergées sur le site, assets/fonts (Cinzel, Cormorant Garamond, Manrope, Inter)
 
 Structure du depôt 
 index.html, ateliers.html, equipe.html, calendrier.html,
