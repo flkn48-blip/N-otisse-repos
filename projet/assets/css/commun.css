@@ -44,7 +44,7 @@
 .nt-head .nt-nav a.nt-nav-cta{font-size:14px}
 }
 @media (min-width:601px){
-.nt-s .nt-membre{width:min(100%,680px)}
+.nt-s .nt-membre{width:min(100%,920px)}
 }
 .nt-s.nt-ateliers .nt-in,.nt-s.nt-ateliers .wp-block-columns,.nt-s.nt-ateliers .wp-block-column,.nt-s.nt-ateliers .nt-at,.nt-s.nt-ateliers .nt-at-detail,.nt-s.nt-ateliers .block-editor-block-list__block{position:static!important;transform:none!important;filter:none!important;contain:none!important;perspective:none!important;will-change:auto!important}
 }
@@ -173,4 +173,21 @@
 .nt-head.is-open .nt-nav{display:flex}
 .nt-head .nt-nav a{padding:12px 14px;font-size:17px}
 .nt-head .nt-nav a.nt-nav-cta{margin:8px 0 0;text-align:center}
+}
+
+/* Équipe : fiches aux coins opposés très arrondis, portrait rond qui dépasse du haut de la fiche.
+   Même disposition qu'avant : photo à gauche pour Émilie, à droite pour Marie-Salomé, fiches décalées. */
+.nt-s.nt-equipe .nt-equipe-liste{gap:clamp(64px,7vw,84px);padding-top:clamp(44px,5vw,60px)}
+.nt-s .nt-membre{position:relative;border-radius:0 clamp(70px,9vw,110px) 0 clamp(70px,9vw,110px)}
+.nt-s .nt-membre-d{border-radius:clamp(70px,9vw,110px) 0 clamp(70px,9vw,110px) 0}
+.nt-s .nt-portrait{border-radius:50%!important;aspect-ratio:1;box-sizing:border-box;border:7px solid #fcfbf7;box-shadow:0 0 0 1px rgba(184,97,63,.35),0 16px 30px -22px rgba(43,33,27,.6)}
+@media (min-width:601px){
+.nt-s .nt-membre{align-items:flex-start;gap:clamp(22px,3vw,40px);padding:22px clamp(56px,6vw,80px) 26px 26px}
+.nt-s .nt-membre-d{padding:22px 26px 26px clamp(56px,6vw,80px)}
+.nt-s .nt-portrait{flex:0 0 clamp(150px,16vw,180px);min-height:0;margin-top:clamp(-62px,-5vw,-44px)!important}
+}
+@media (max-width:600px){
+.nt-s .nt-membre,.nt-s .nt-membre-d{align-items:center;text-align:center;padding:0 22px 30px;border-radius:0 70px 0 70px}
+.nt-s .nt-membre-d{border-radius:70px 0 70px 0}
+.nt-s .nt-portrait{width:160px!important;flex:0 0 auto;aspect-ratio:1;margin-top:-60px!important}
 }
