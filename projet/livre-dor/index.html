@@ -52,13 +52,44 @@
 
 
 
-<div class="wp-block-group alignfull nt-s nt-livre-sec is-layout-flow wp-block-group-is-layout-flow">
-<div class="wp-block-group nt-in is-layout-flow wp-block-group-is-layout-flow">
-<h2 class="wp-block-heading">Livre d’or</h2>
+<div class="nt-livre nt-lv-page">
 
-
-<div class="nt-livre"><div class="nt-lv-tete"><p class="nt-lv-chapo">Ils ont participé à l’un de nos ateliers ou à un événement. Voici leurs mots.</p></div><p class="nt-lv-vide">Le livre d’or attend ses premiers mots. Soyez la première ou le premier à le signer.</p><div class="nt-lv-signer"><p class="nt-lv-invite">Vous avez participé à un atelier ou à un événement de Néotisse ? Partagez votre expérience : votre avis sera publié après relecture par l’association.</p><button type="button" class="nt-lv-btn" id="nt-lv-ouvrir" aria-expanded="false" aria-controls="nt-lv-form">Laisser un avis</button></div><form class="nt-lv-form" id="nt-lv-form" novalidate hidden><div class="nt-lv-ch"><label for="nt-lv-prenom">Votre prénom <span>(avec l’initiale de votre nom)</span></label><input id="nt-lv-prenom" name="prenom" type="text" maxlength="60" autocomplete="given-name" placeholder="Ex. Camille D."></div><div class="nt-lv-ch"><label for="nt-lv-profil">Vous êtes</label><select id="nt-lv-profil" name="profil"><option value="">Choisir</option><option>Particulier</option><option>Établissement scolaire</option><option>Musée ou institution</option><option>Collectivité</option><option>Association</option><option>Chercheur ou chercheuse</option><option>Autre</option></select></div><div class="nt-lv-ch nt-lv-large"><label for="nt-lv-sujet">Atelier ou événement concerné <span>(facultatif)</span></label><select id="nt-lv-sujet" name="sujet"><option value="">Choisir</option><option>Atelier démonstratif</option><option>Atelier participatif</option><option>Atelier enfant</option><option>Expérimentation</option><option>Conférence</option><option>Festival ou événement</option><option>Autre</option></select></div><fieldset class="nt-lv-ch nt-lv-large nt-lv-notez"><legend>Votre note</legend><div class="nt-lv-rang"><input type="radio" name="note" id="nt-lv-n5" value="5"><label for="nt-lv-n5" title="5 sur 5"><span class="nt-sr">5 sur 5</span>★</label><input type="radio" name="note" id="nt-lv-n4" value="4"><label for="nt-lv-n4" title="4 sur 5"><span class="nt-sr">4 sur 5</span>★</label><input type="radio" name="note" id="nt-lv-n3" value="3"><label for="nt-lv-n3" title="3 sur 5"><span class="nt-sr">3 sur 5</span>★</label><input type="radio" name="note" id="nt-lv-n2" value="2"><label for="nt-lv-n2" title="2 sur 5"><span class="nt-sr">2 sur 5</span>★</label><input type="radio" name="note" id="nt-lv-n1" value="1"><label for="nt-lv-n1" title="1 sur 5"><span class="nt-sr">1 sur 5</span>★</label></div></fieldset><div class="nt-lv-ch nt-lv-large"><label for="nt-lv-msg">Votre message</label><textarea id="nt-lv-msg" name="message" maxlength="800" rows="5"></textarea></div><p class="nt-lv-hp" aria-hidden="true"><label>Ne pas remplir<input type="text" name="site" tabindex="-1" autocomplete="off"></label></p><div class="nt-lv-ch nt-lv-large nt-lv-accord"><input type="checkbox" id="nt-lv-accord" name="accord"><label for="nt-lv-accord">J’accepte que mon prénom, mon profil, ma note et mon message soient publiés sur ce site après relecture par l’association. Je peux demander leur retrait à tout moment, comme expliqué dans la <a href="../politique-de-confidentialite/index.html">politique de confidentialité</a>.</label></div><p class="nt-lv-msg" role="status" aria-live="polite"></p><button type="submit" class="nt-lv-btn">Envoyer mon avis</button></form></div>
+<section class="nt-lv-hero" aria-labelledby="nt-lv-titre">
+<div class="nt-lv-hero-in">
+<p class="nt-lv-sur">Témoignages</p>
+<h2 id="nt-lv-titre">Livre d’or</h2>
+<p class="nt-lv-chapo">Ils ont participé à l’un de nos ateliers ou à un événement. Voici leurs mots.</p>
 </div>
+</section>
+
+<section class="nt-lv-bande" aria-label="Avis des participants">
+<div class="nt-lv-carrousel">
+<div class="nt-lv-piste" id="nt-lv-piste" tabindex="0" aria-label="Avis, faire défiler horizontalement">
+<p class="nt-lv-vide">Chargement des avis…</p>
+</div>
+</div>
+<div class="nt-lv-nav" hidden>
+<button type="button" class="nt-lv-fl" data-dir="-1" aria-label="Avis précédents"><span aria-hidden="true">←</span></button>
+<div class="nt-lv-points" role="group" aria-label="Choisir une page d’avis"></div>
+<button type="button" class="nt-lv-fl" data-dir="1" aria-label="Avis suivants"><span aria-hidden="true">→</span></button>
+</div>
+
+<div class="nt-lv-in">
+<div class="nt-lv-outils">
+<div class="nt-lv-note" id="nt-lv-note"></div>
+<div class="nt-lv-filtres" id="nt-lv-filtres" role="group" aria-label="Filtrer les avis" hidden></div>
+</div>
+<p class="nt-lv-demo" hidden>Mode démonstration : ces avis sont des exemples, enregistrés seulement dans votre navigateur.</p>
+
+<div class="nt-lv-signer">
+<h3>Vous avez participé ?</h3>
+<p class="nt-lv-invite">Partagez votre expérience d’un atelier ou d’un événement Néotisse : votre avis sera publié après relecture par l’association.</p>
+<button type="button" class="nt-lv-btn" id="nt-lv-ouvrir" aria-expanded="false" aria-controls="nt-lv-form">Laisser un avis</button>
+</div>
+<form class="nt-lv-form" id="nt-lv-form" novalidate hidden><div class="nt-lv-ch"><label for="nt-lv-prenom">Votre prénom <span>(avec l’initiale de votre nom)</span></label><input id="nt-lv-prenom" name="prenom" type="text" maxlength="60" autocomplete="given-name" placeholder="Ex. Camille D."></div><div class="nt-lv-ch"><label for="nt-lv-profil">Vous êtes</label><select id="nt-lv-profil" name="profil"><option value="">Choisir</option><option>Particulier</option><option>Établissement scolaire</option><option>Musée ou institution</option><option>Collectivité</option><option>Association</option><option>Chercheur ou chercheuse</option><option>Autre</option></select></div><div class="nt-lv-ch nt-lv-large"><label for="nt-lv-sujet">Atelier ou événement concerné <span>(facultatif)</span></label><select id="nt-lv-sujet" name="sujet"><option value="">Choisir</option><option>Atelier démonstratif</option><option>Atelier participatif</option><option>Atelier enfant</option><option>Expérimentation</option><option>Conférence</option><option>Festival ou événement</option><option>Autre</option></select></div><fieldset class="nt-lv-ch nt-lv-large nt-lv-notez"><legend>Votre note</legend><div class="nt-lv-rang"><input type="radio" name="note" id="nt-lv-n5" value="5"><label for="nt-lv-n5" title="5 sur 5"><span class="nt-sr">5 sur 5</span>★</label><input type="radio" name="note" id="nt-lv-n4" value="4"><label for="nt-lv-n4" title="4 sur 5"><span class="nt-sr">4 sur 5</span>★</label><input type="radio" name="note" id="nt-lv-n3" value="3"><label for="nt-lv-n3" title="3 sur 5"><span class="nt-sr">3 sur 5</span>★</label><input type="radio" name="note" id="nt-lv-n2" value="2"><label for="nt-lv-n2" title="2 sur 5"><span class="nt-sr">2 sur 5</span>★</label><input type="radio" name="note" id="nt-lv-n1" value="1"><label for="nt-lv-n1" title="1 sur 5"><span class="nt-sr">1 sur 5</span>★</label></div></fieldset><div class="nt-lv-ch nt-lv-large"><label for="nt-lv-msg">Votre message</label><textarea id="nt-lv-msg" name="message" maxlength="800" rows="5"></textarea></div><p class="nt-lv-hp" aria-hidden="true"><label>Ne pas remplir<input type="text" name="site" tabindex="-1" autocomplete="off"></label></p><div class="nt-lv-ch nt-lv-large nt-lv-accord"><input type="checkbox" id="nt-lv-accord" name="accord"><label for="nt-lv-accord">J’accepte que mon prénom, mon profil, ma note et mon message soient publiés sur ce site après relecture par l’association. Je peux demander leur retrait à tout moment, comme expliqué dans la <a href="../politique-de-confidentialite/index.html">politique de confidentialité</a>.</label></div><p class="nt-lv-msg" role="status" aria-live="polite"></p><button type="submit" class="nt-lv-btn">Envoyer mon avis</button></form>
+</div>
+</section>
+
 </div>
 
 
@@ -75,6 +106,8 @@
 
 </div>
 <script src="../assets/js/commun.js"></script>
+<script src="../assets/js/config.js"></script>
+<script src="../assets/js/data.js"></script>
 <script src="../assets/js/pages/livre-dor.js"></script>
 </body>
 </html>

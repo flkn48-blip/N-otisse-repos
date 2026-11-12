@@ -76,4 +76,13 @@ header.wp-block-template-part,.wp-site-blocks>header,footer.wp-block-template-pa
 .nt-s.nt-equipe .nt-tete h2{margin:0!important;font-weight:400!important}
 /* Recherche, expérimentation et médiation : accroche sous le titre */
 .nt-s.nt-suite .nt-intro{color:var(--c-encre)!important;margin-bottom:clamp(22px,2.6vw,32px)!important}
+/* Partenaires : bandeau de logos qui défile en continu (la série est doublée pour boucler sans saut).
+   Le défilement est fait en JS (assets/js/pages/equipe.js) : une animation CSS empêcherait le blanc des logos de se fondre dans le lin. */
+.nt-s.nt-partenaires{overflow-x:clip}
+.nt-logos-cadre{overflow:hidden;margin:28px calc(50% - 50vw) 0}
+.nt-s.nt-partenaires .nt-logos{display:flex!important;flex-wrap:nowrap!important;align-items:center!important;gap:0!important;width:max-content;margin:0!important}
+.nt-s.nt-partenaires .nt-logos>.wp-block-column{flex:0 0 auto!important;width:clamp(110px,13vw,170px);padding:0 clamp(22px,2.8vw,40px);margin:0!important;box-sizing:content-box}
+.nt-s.nt-partenaires .nt-logos img{mix-blend-mode:multiply;max-height:clamp(70px,7vw,100px);object-fit:contain}
+.nt-s.nt-partenaires .nt-logos img[src*="lozere"]{transform:scale(1.45)} /* l'image a de grandes marges blanches */
+@media (prefers-reduced-motion:reduce){.nt-s.nt-partenaires .nt-logos{width:auto;flex-wrap:wrap!important;justify-content:center;row-gap:28px!important}.nt-s.nt-partenaires .nt-logos>[aria-hidden]{display:none}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.nt-s *,.nt-head *{transition:none!important;animation:none!important}}

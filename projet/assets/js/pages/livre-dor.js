@@ -1,72 +1,106 @@
+/* Livre d'or : avis publiés en cartes inclinées dans un carrousel, filtre par atelier,
+   et formulaire « Laisser un avis » (publié seulement après relecture dans l'espace d'administration).
+   Les données passent par NT.api (assets/js/data.js), comme l'espace d'administration. */
 (function(){
+function $(s,r){return (r||document).querySelector(s);}
+function $$(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s));}
+function esc(t){return String(t==null?'':t).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function etoiles(n){n=Math.max(0,Math.min(5,n|0));var s='';for(var i=0;i<5;i++){s+=i<n?'★':'<i>★</i>';}return '<span class="nt-et" role="img" aria-label="Note : '+n+' sur 5">'+s+'</span>';}
+
 function init(){
-var racine=document.querySelector('.nt-livre');
-if(!racine){return;}
-var cartes=Array.prototype.slice.call(racine.querySelectorAll('.nt-av'));
-var plus=racine.querySelector('.nt-lv-btn2');
-var filtre='';
-var PAS=6;
-var visibles=PAS;
-function maj(){
-var n=0;var total=0;
-cartes.forEach(function(c){
-var ok=!filtre||c.getAttribute('data-profil')===filtre;
-if(ok){total++;}
-var montre=ok&&n<visibles;
-if(montre){n++;}
-c.hidden=!montre;
-});
-if(plus){plus.hidden=total<=visibles;}
+var racine=$('.nt-lv-page');
+if(!racine||!window.NT||!NT.api){return;}
+var piste=$('#nt-lv-piste'),nav=$('.nt-lv-nav',racine),points=$('.nt-lv-points',racine),filtres=$('#nt-lv-filtres'),note=$('#nt-lv-note');
+var avis=[],filtre='';
+
+function carte(a){
+var qui=[a.profile,a.subject].filter(Boolean).map(esc).join(' · ');
+return '<article class="nt-av">'+etoiles(a.rating)+
+'<p class="nt-av-txt">'+esc(a.message).replace(/\n/g,'<br>')+'</p>'+
+'<p class="nt-av-qui"><strong>'+esc(a.first_name)+'</strong>'+(qui?'<span>'+qui+'</span>':'')+'</p></article>';
 }
-var fs=racine.querySelectorAll('.nt-lv-filtres button');
-Array.prototype.forEach.call(fs,function(b){
-b.addEventListener('click',function(){
-Array.prototype.forEach.call(fs,function(x){x.classList.remove('is-on');});
-b.classList.add('is-on');
-filtre=b.getAttribute('data-f')||'';
-visibles=PAS;
-maj();
+
+function dessinerFiltres(){
+var sujets=avis.map(function(a){return a.subject;}).filter(function(s,i,t){return s&&t.indexOf(s)===i;});
+if(sujets.length<2){filtres.hidden=true;return;}
+filtres.hidden=false;
+filtres.innerHTML=[''].concat(sujets).map(function(s){return '<button type="button" data-f="'+esc(s)+'" aria-pressed="'+(s===filtre)+'">'+esc(s||'Tous les avis')+'</button>';}).join('');
+$$('button',filtres).forEach(function(b){b.addEventListener('click',function(){filtre=b.getAttribute('data-f');dessiner();});});
+}
+
+/* Points de navigation : une page = ce qui tient dans la largeur visible */
+function pages(){return Math.max(1,Math.ceil((piste.scrollWidth-4)/piste.clientWidth));}
+function pageCourante(){var n=pages();if(n<2){return 0;}var max=piste.scrollWidth-piste.clientWidth;return Math.round(piste.scrollLeft/max*(n-1));}
+function aller(i){var n=pages();var max=piste.scrollWidth-piste.clientWidth;piste.scrollTo({left:n<2?0:max*i/(n-1),behavior:'smooth'});}
+function majPoints(){
+var n=pages();
+nav.hidden=n<2;
+if(points.children.length!==n){
+var h='';for(var i=0;i<n;i++){h+='<button type="button" aria-label="Page '+(i+1)+' sur '+n+'"></button>';}
+points.innerHTML=h;
+$$('button',points).forEach(function(b,i){b.addEventListener('click',function(){aller(i);});});
+}
+var c=pageCourante();
+$$('button',points).forEach(function(b,i){b.setAttribute('aria-current',i===c?'true':'false');});
+}
+$$('.nt-lv-fl',racine).forEach(function(b){b.addEventListener('click',function(){
+aller(Math.max(0,Math.min(pages()-1,pageCourante()+parseInt(b.getAttribute('data-dir'),10))));
+});});
+var att=null;
+piste.addEventListener('scroll',function(){clearTimeout(att);att=setTimeout(majPoints,80);});
+window.addEventListener('resize',majPoints);
+
+function dessiner(){
+if(!avis.length){
+note.innerHTML='';filtres.hidden=true;nav.hidden=true;
+piste.innerHTML='<p class="nt-lv-vide">Le livre d’or attend ses premiers mots. Soyez la première ou le premier à le signer.</p>';
+return;
+}
+var somme=avis.reduce(function(s,a){return s+(a.rating|0);},0),moy=Math.round(somme/avis.length*10)/10;
+note.innerHTML='<span class="nt-lv-moy">'+String(moy).replace('.',',')+'</span>'+etoiles(Math.round(moy))+'<span class="nt-lv-nb">'+avis.length+' avis</span>';
+dessinerFiltres();
+var liste=avis.filter(function(a){return !filtre||a.subject===filtre;});
+piste.innerHTML=liste.map(carte).join('');
+piste.scrollLeft=0;
+majPoints();
+}
+
+NT.api.reviewsPublished().then(function(r){avis=r||[];dessiner();}).catch(function(){
+piste.innerHTML='<p class="nt-lv-vide">Les avis sont momentanément indisponibles.</p>';
 });
-});
-if(plus){plus.addEventListener('click',function(){visibles+=PAS;maj();});}
-maj();
-var ouvrir=racine.querySelector('#nt-lv-ouvrir');
-var form=racine.querySelector('#nt-lv-form');
-if(ouvrir&&form){
+var demo=$('.nt-lv-demo',racine);
+if(demo&&NT.demo){demo.hidden=false;}
+
+/* ----- Laisser un avis ----- */
+var ouvrir=$('#nt-lv-ouvrir'),form=$('#nt-lv-form'),dernier=0;
+if(!ouvrir||!form){return;}
 ouvrir.addEventListener('click',function(){
 var o=form.hidden;
 form.hidden=!o;
 ouvrir.setAttribute('aria-expanded',o?'true':'false');
-if(o){var p=form.querySelector('input[name=prenom]');if(p){p.focus();}}
+if(o){var p=$('input[name=prenom]',form);if(p){p.focus();}}
 });
 form.addEventListener('submit',function(e){
 e.preventDefault();
-var msg=form.querySelector('.nt-lv-msg');
+var msg=$('.nt-lv-msg',form);
 function dire(t,c){msg.textContent=t;msg.className='nt-lv-msg '+(c||'');}
 var f=new FormData(form);
-var note=f.get('note');
-var data={prenom:(f.get('prenom')||'').trim(),profil:f.get('profil')||'',sujet:f.get('sujet')||'',note:note?parseInt(note,10):0,message:(f.get('message')||'').trim(),accord:!!f.get('accord'),site:f.get('site')||''};
-if(data.prenom.length<2){dire('Merci d’indiquer votre prénom.','is-err');return;}
-if(!data.note){dire('Merci de choisir une note.','is-err');return;}
-if(data.message.length<10){dire('Merci d’écrire quelques mots pour votre avis.','is-err');return;}
-if(!data.accord){dire('Merci de cocher la case d’accord de publication.','is-err');return;}
-var bt=form.querySelector('button[type=submit]');
-bt.disabled=true;
-dire('Envoi en cours…','');
-fetch('/wp-json/neotisse/v1/avis',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)})
-.then(function(r){return r.json().then(function(j){return {ok:r.ok,j:j};});})
-.then(function(res){
-if(res.ok&&res.j&&res.j.ok){
-form.classList.add('is-envoye');
+if(f.get('site')){return;}
+var d={first_name:String(f.get('prenom')||'').trim(),profile:f.get('profil')||'',subject:f.get('sujet')||'',rating:parseInt(f.get('note'),10)||0,message:String(f.get('message')||'').trim()};
+if(d.first_name.length<2){return dire('Merci d’indiquer votre prénom.','is-err');}
+if(!d.rating){return dire('Merci de choisir une note.','is-err');}
+if(d.message.length<10){return dire('Merci d’écrire quelques mots pour votre avis.','is-err');}
+if(d.message.length>800){return dire('Votre message est trop long (800 caractères maximum).','is-err');}
+if(/https?:\/\/|www\./i.test(d.message+' '+d.first_name)){return dire('Les liens ne sont pas acceptés dans un avis.','is-err');}
+if(!f.get('accord')){return dire('Merci de cocher la case d’accord de publication.','is-err');}
+if(Date.now()-dernier<30000){return dire('Merci de patienter quelques secondes avant un nouvel envoi.','is-err');}
+var bt=$('button[type=submit]',form);
+bt.disabled=true;dire('Envoi en cours…','');
+NT.api.submitReview(d).then(function(){
+dernier=Date.now();form.classList.add('is-envoye');
 dire('Merci ! Votre avis sera publié après relecture par l’association.','is-ok');
-}else{
-bt.disabled=false;
-dire((res.j&&res.j.message)?res.j.message:'Une erreur est survenue. Merci de réessayer.','is-err');
-}
-})
-.catch(function(){bt.disabled=false;dire('Une erreur est survenue. Vérifiez votre connexion et réessayez.','is-err');});
+}).catch(function(){bt.disabled=false;dire('Une erreur est survenue. Merci de réessayer.','is-err');});
 });
-}
 }
 if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init);}else{init();}
 })();

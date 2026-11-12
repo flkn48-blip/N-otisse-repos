@@ -1,45 +1,71 @@
-.nt-livre{max-width:1100px;margin:0 auto;font-family:'Manrope',system-ui,sans-serif;color:#4a3d34}
+/* Livre d'or : photo en haut, bande brun foncé, avis en cartes inclinées dans un carrousel, formulaire en dessous */
+.nt-livre{font-family:'Manrope',system-ui,sans-serif;color:#4a3d34}
 .nt-livre .nt-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-.nt-lv-apercu{margin:0 0 24px!important;padding:12px 18px;border-radius:12px;background:#ebd3c1;font-size:14px;color:#2b211b}
-.nt-lv-tete{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin:0 0 clamp(28px,4vw,48px)}
-.nt-lv-chapo{margin:0!important;max-width:56ch;font-size:clamp(18px,1.5vw,21px);line-height:1.6}
+.nt-lv-page{background:#2b211b;padding-bottom:clamp(64px,8vw,110px);overflow-x:clip}
+
+/* Haut : photo de la conférence, voile brun uniforme pour la lisibilité, bas arrondi */
+.nt-lv-hero{background:linear-gradient(rgba(43,33,27,.5),rgba(43,33,27,.5)),url('../../img/conference-communication.jpg') center 45%/cover no-repeat;border-radius:0 0 clamp(32px,5vw,72px) clamp(32px,5vw,72px);padding:clamp(72px,10vw,130px) clamp(24px,5vw,64px) clamp(210px,20vw,250px)}
+.nt-lv-hero-in{max-width:1120px;margin:0 auto}
+.nt-lv-sur{margin:0 0 14px!important;font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#ebd3c1}
+.nt-livre .nt-lv-hero h2{margin:0 0 18px!important;font-family:'Cinzel','Cormorant Garamond',Georgia,serif!important;font-weight:400!important;font-size:clamp(44px,6vw,84px)!important;line-height:1!important;letter-spacing:.02em;text-transform:uppercase;color:#fffdf9!important}
+.nt-lv-chapo{margin:0!important;max-width:34ch;font-size:clamp(18px,1.7vw,24px);line-height:1.5;color:#f6f1ea}
+
+/* Carrousel : chevauche le bas de la photo */
+.nt-lv-carrousel{position:relative;z-index:1;margin-top:clamp(-200px,-16vw,-160px)}
+.nt-lv-piste{display:flex;gap:clamp(18px,2.4vw,30px);overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 clamp(24px,5vw,64px);padding:46px clamp(24px,5vw,64px) 40px;scrollbar-width:none;outline:none}
+.nt-lv-piste::-webkit-scrollbar{display:none}
+.nt-lv-piste:focus-visible{outline:2px solid #ebd3c1;outline-offset:-6px;border-radius:12px}
+@media (min-width:1248px){.nt-lv-piste{padding-left:calc((100% - 1120px)/2);padding-right:calc((100% - 1120px)/2);scroll-padding:0 calc((100% - 1120px)/2)}}
+
+.nt-av{flex:0 0 clamp(260px,27vw,340px);box-sizing:border-box;min-height:clamp(320px,30vw,370px);display:flex;flex-direction:column;scroll-snap-align:start;border-radius:28px;padding:clamp(26px,2.6vw,34px);background:#ebd3c1;color:#2b211b;box-shadow:0 30px 50px -30px rgba(0,0,0,.65);transform:rotate(-3deg);transition:transform .3s cubic-bezier(.2,.7,.2,1)}
+.nt-av:nth-child(4n+2){background:#b8613f;color:#fffdf9;transform:rotate(2.5deg)}
+.nt-av:nth-child(4n+3){background:#ece3d6;transform:rotate(-1.5deg)}
+.nt-av:nth-child(4n){background:#8a2a36;color:#fffdf9;transform:rotate(3deg)}
+.nt-av:hover{transform:rotate(0) translateY(-6px)}
+.nt-et{color:#b8613f;letter-spacing:2px;font-size:18px;white-space:nowrap}
+.nt-et i{font-style:normal;opacity:.3}
+.nt-av:nth-child(4n+2) .nt-et,.nt-av:nth-child(4n) .nt-et{color:#fffdf9}
+.nt-av-txt{margin:18px 0 26px!important;font-size:16px;line-height:1.6}
+.nt-av-qui{margin:auto 0 0!important;display:flex;flex-direction:column;gap:4px}
+.nt-av-qui strong{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:500;font-size:clamp(26px,2.4vw,32px);line-height:1.05}
+.nt-av-qui span{font-size:13px;opacity:.8}
+.nt-lv-vide{flex:1;max-width:560px;margin:0 auto!important;padding:34px;border-radius:28px;background:#fffdf9;text-align:center;font-size:17px;color:#2b211b}
+
+/* Flèches et points */
+.nt-lv-nav{display:flex;align-items:center;justify-content:center;gap:18px;margin:0 0 clamp(36px,4vw,52px)}
+.nt-lv-nav[hidden]{display:none}
+.nt-lv-points{display:flex;gap:8px}
+.nt-livre .nt-lv-points button,.nt-livre .nt-lv-points button:hover,.nt-livre .nt-lv-points button:focus{all:unset;cursor:pointer;width:8px!important;height:8px!important;min-height:0!important;padding:0!important;border:0!important;border-radius:999px!important;background:rgba(246,241,234,.3)!important;box-shadow:none!important;transition:width .25s,background .25s}
+.nt-livre .nt-lv-points button[aria-current=true]{width:26px!important;background:#b8613f!important}
+.nt-livre .nt-lv-fl,.nt-livre .nt-lv-fl:hover,.nt-livre .nt-lv-fl:focus{all:unset;box-sizing:border-box;cursor:pointer;width:44px!important;height:44px!important;padding:0!important;display:inline-flex;align-items:center;justify-content:center;border-radius:999px!important;border:1px solid rgba(246,241,234,.35)!important;background:transparent!important;box-shadow:none!important;color:#f6f1ea!important;font-size:18px!important;transition:background .2s}
+.nt-livre .nt-lv-fl:hover{background:rgba(246,241,234,.1)!important}
+.nt-livre .nt-lv-points button:focus-visible,.nt-livre .nt-lv-fl:focus-visible{outline:2px solid #ebd3c1;outline-offset:3px}
+
+/* Bas de la bande : note moyenne, filtres, invitation et formulaire */
+.nt-lv-in{max-width:1120px;margin:0 auto;padding:0 clamp(24px,5vw,64px);color:#f6f1ea}
+.nt-lv-outils{display:flex;justify-content:space-between;align-items:center;gap:20px 32px;flex-wrap:wrap;padding-bottom:clamp(28px,3vw,40px);border-bottom:1px solid rgba(246,241,234,.15)}
 .nt-lv-note{display:flex;align-items:center;gap:12px}
-.nt-lv-moy{font-family:'Cormorant Garamond',serif;font-size:56px;line-height:1;color:#2b211b}
-.nt-lv-nb{font-size:14px;color:#7a6a5d}
-.nt-et{color:#b8613f;letter-spacing:2px;font-size:17px;white-space:nowrap}
-.nt-et i{font-style:normal;color:rgba(184,97,63,.25)}
-.nt-lv-vedette{margin:0 0 clamp(36px,5vw,64px);padding:clamp(28px,4vw,52px);background:#ebd3c1;border-radius:28px;position:relative}
-.nt-lv-vedette:before{content:'“';position:absolute;top:-6px;left:26px;font-family:'Cormorant Garamond',serif;font-size:140px;line-height:1;color:#b8613f}
-.nt-lv-vedette blockquote{margin:0;padding:0;border:0}
-.nt-lv-vedette blockquote p{margin:0;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:clamp(26px,3.2vw,42px);line-height:1.25;color:#2b211b}
-.nt-lv-vedette figcaption{margin-top:22px;font-size:15px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.nt-lv-vedette figcaption span:not(.nt-et){color:#7a6a5d}
-.nt-lv-filtres{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 28px}
-.nt-livre .nt-lv-filtres button,.nt-livre .nt-lv-filtres button:hover,.nt-livre .nt-lv-filtres button:focus{all:unset;box-sizing:border-box;cursor:pointer;padding:9px 18px!important;border-radius:999px!important;border:1px solid rgba(43,33,27,.2)!important;font-family:'Manrope',sans-serif!important;font-size:14px!important;color:#2b211b!important;background:transparent!important}
-.nt-livre .nt-lv-filtres button:hover{background:rgba(43,33,27,.06)!important}
-.nt-livre .nt-lv-filtres button.is-on{background:#8a2a36!important;border-color:#8a2a36!important;color:#fff!important}
-.nt-livre .nt-lv-filtres button:focus-visible{outline:2px solid #b8613f;outline-offset:2px}
-.nt-lv-mur{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:24px}
-.nt-av{background:#fffdf9;border-radius:16px;padding:30px 28px 26px;position:relative;box-shadow:0 22px 40px -30px rgba(43,33,27,.6);outline:1.5px dashed rgba(184,97,63,.5);outline-offset:-10px;transition:transform .25s ease}
-.nt-av:nth-child(odd){transform:rotate(-.5deg)}
-.nt-av:nth-child(even){transform:rotate(.4deg)}
-.nt-av:hover{transform:rotate(0) translateY(-3px)}
-.nt-av[hidden]{display:none}
-.nt-av-sujet{margin:0 0 10px!important;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#b8613f;font-weight:600}
-.nt-av-txt{margin:14px 0 18px!important;font-size:16px;line-height:1.6}
-.nt-av-qui{margin:0!important;display:flex;flex-direction:column;gap:2px;font-size:14px}
-.nt-av-qui strong{color:#2b211b;font-weight:600}
-.nt-av-qui span{color:#7a6a5d}
-.nt-lv-plus{text-align:center;margin-top:30px}
-.nt-lv-vide{padding:34px;border-radius:20px;background:#fffdf9;text-align:center;font-size:17px;margin:0 0 30px!important}
-.nt-lv-signer{margin:clamp(36px,5vw,60px) 0 0}
-.nt-lv-invite{margin:0 0 20px!important;max-width:60ch;font-size:clamp(17px,1.4vw,20px);line-height:1.55;color:#2b211b}
-.nt-livre .nt-lv-btn,.nt-livre .nt-lv-btn:hover,.nt-livre .nt-lv-btn:focus{all:unset;box-sizing:border-box;cursor:pointer;display:inline-block;padding:15px 30px!important;border-radius:999px!important;background:#8a2a36!important;color:#fff!important;font-family:'Manrope',sans-serif!important;font-weight:600!important;font-size:15px!important;transition:transform .2s}
+.nt-lv-moy{font-family:'Cormorant Garamond',serif;font-size:52px;line-height:1;color:#fffdf9}
+.nt-lv-nb{font-size:14px;color:rgba(246,241,234,.7)}
+.nt-lv-filtres{display:flex;gap:10px;flex-wrap:wrap}
+.nt-lv-filtres[hidden]{display:none}
+.nt-livre .nt-lv-filtres button,.nt-livre .nt-lv-filtres button:hover,.nt-livre .nt-lv-filtres button:focus{all:unset;box-sizing:border-box;cursor:pointer;padding:9px 18px!important;border-radius:999px!important;border:1px solid rgba(246,241,234,.35)!important;font-family:'Manrope',sans-serif!important;font-size:14px!important;color:#f6f1ea!important;background:transparent!important}
+.nt-livre .nt-lv-filtres button:hover{background:rgba(246,241,234,.1)!important}
+.nt-livre .nt-lv-filtres button[aria-pressed=true]{background:#f6f1ea!important;border-color:#f6f1ea!important;color:#2b211b!important}
+.nt-livre .nt-lv-filtres button:focus-visible{outline:2px solid #ebd3c1;outline-offset:2px}
+.nt-lv-demo{margin:18px 0 0!important;font-size:13px;color:rgba(246,241,234,.6)}
+.nt-lv-demo[hidden]{display:none}
+.nt-lv-signer{margin:clamp(40px,5vw,64px) 0 0}
+.nt-livre .nt-lv-signer h3{margin:0 0 12px!important;font-family:'Cinzel','Cormorant Garamond',Georgia,serif!important;font-weight:400!important;font-size:clamp(28px,3vw,40px)!important;line-height:1.1!important;color:#fffdf9!important}
+.nt-lv-invite{margin:0 0 24px!important;max-width:58ch;font-size:clamp(16px,1.3vw,18px);line-height:1.6;color:rgba(246,241,234,.85)}
+.nt-livre .nt-lv-btn,.nt-livre .nt-lv-btn:hover,.nt-livre .nt-lv-btn:focus{all:unset;box-sizing:border-box;cursor:pointer;display:inline-block;padding:15px 30px!important;border-radius:999px!important;background:#f6f1ea!important;color:#2b211b!important;font-family:'Manrope',sans-serif!important;font-weight:600!important;font-size:15px!important;transition:transform .2s}
 .nt-livre .nt-lv-btn:hover{transform:translateY(-2px)}
-.nt-livre .nt-lv-btn:focus-visible,.nt-livre .nt-lv-btn2:focus-visible{outline:2px solid #b8613f;outline-offset:3px}
-.nt-livre .nt-lv-btn2,.nt-livre .nt-lv-btn2:hover,.nt-livre .nt-lv-btn2:focus{all:unset;box-sizing:border-box;cursor:pointer;padding:12px 26px!important;border-radius:999px!important;border:1px solid #8a2a36!important;color:#8a2a36!important;font-family:'Manrope',sans-serif!important;font-weight:600!important;font-size:15px!important}
-.nt-livre .nt-lv-btn2[hidden]{display:none}
-.nt-lv-form{margin-top:26px;display:grid;grid-template-columns:1fr 1fr;gap:18px 20px;background:#fffdf9;border-radius:28px;padding:clamp(24px,3vw,38px);box-shadow:0 36px 60px -40px rgba(43,33,27,.6)}
+.nt-livre .nt-lv-btn:focus-visible{outline:2px solid #ebd3c1;outline-offset:3px}
+.nt-lv-form .nt-lv-btn,.nt-lv-form .nt-lv-btn:hover,.nt-lv-form .nt-lv-btn:focus{background:#8a2a36!important;color:#fff!important}
+.nt-lv-form .nt-lv-btn:focus-visible{outline-color:#b8613f}
+
+/* Formulaire (inchangé sur le fond, carte claire sur la bande foncée) */
+.nt-lv-form{margin-top:26px;display:grid;grid-template-columns:1fr 1fr;gap:18px 20px;background:#fffdf9;color:#4a3d34;border-radius:28px;padding:clamp(24px,3vw,38px);box-shadow:0 36px 60px -40px rgba(0,0,0,.6)}
 .nt-lv-form[hidden]{display:none}
 .nt-lv-ch{display:flex;flex-direction:column;gap:6px;margin:0;padding:0;border:0;min-width:0}
 .nt-lv-large{grid-column:1/-1}
@@ -63,5 +89,6 @@
 .nt-lv-msg.is-ok{color:#2e7d32;font-weight:600}
 .nt-lv-form .nt-lv-btn{grid-column:1/-1;justify-self:start}
 .nt-lv-form.is-envoye>*:not(.nt-lv-msg){display:none!important}
-@media (max-width:700px){.nt-lv-form{grid-template-columns:1fr}.nt-lv-tete{align-items:flex-start}}
-@media (prefers-reduced-motion:reduce){.nt-av,.nt-av:hover{transform:none;transition:none}}
+
+@media (max-width:700px){.nt-lv-form{grid-template-columns:1fr}.nt-av{flex-basis:78vw}}
+@media (prefers-reduced-motion:reduce){.nt-av,.nt-av:hover{transition:none}.nt-av:hover{transform:none}.nt-lv-points button{transition:none!important}}

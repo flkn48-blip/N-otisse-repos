@@ -73,8 +73,9 @@
 .nt-s .nt-pilules .nt-pilule--1,.nt-s .nt-pilules .nt-pilule--1 *,.nt-s .nt-pilules .nt-pilule--2,.nt-s .nt-pilules .nt-pilule--2 *{color:#2b211b !important}
 .nt-s .nt-pilules .nt-pilule--3,.nt-s .nt-pilules .nt-pilule--3 *{color:#f6f1ea !important}
 
-/* Calendrier : photo du matériel en fond, voile crème pour garder la lisibilité */
-.nt-s.nt-calendrier{background:linear-gradient(rgba(246,241,234,.62),rgba(246,241,234,.62)),url('../img/photo-materiel.jpg') center 38%/cover no-repeat !important}
+/* Calendrier : photo du matériel en fond, voile crème plus couvrant pour que le titre et le texte d'intro se lisent bien */
+.nt-s.nt-calendrier{background:linear-gradient(rgba(246,241,234,.8),rgba(246,241,234,.8)),url('../img/photo-materiel.jpg') center 38%/cover no-repeat !important}
+.nt-s.nt-calendrier .nt-intro{color:#2b211b !important;font-weight:400 !important}
 .nt-s.nt-calendrier .nt-cal-carte{background:rgba(255,253,249,.94) !important;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
 .nt-s.nt-calendrier h2{color:#2b211b !important;text-shadow:0 0 22px rgba(246,241,234,.9)}
 
@@ -191,3 +192,11 @@
 .nt-s .nt-membre-d{border-radius:70px 0 70px 0}
 .nt-s .nt-portrait{width:160px!important;flex:0 0 auto;aspect-ratio:1;margin-top:-60px!important}
 }
+
+/* Pied de page : brun de la palette (#6e3927) sur toutes les pages, texte crème.
+   Il encadre les pages claires et se distingue de la bande foncée du livre d'or. */
+.wp-site-blocks .nt-pied{background:#6e3927!important;color:rgba(246,241,234,.85)!important;border-top:0!important}
+.wp-site-blocks .nt-pied .nt-pied-nom{color:#fffdf9!important}
+.wp-site-blocks .nt-pied a{color:#f6f1ea!important}
+.wp-site-blocks .nt-pied a:hover{color:#ebd3c1!important;text-decoration:underline!important;text-underline-offset:3px}
+.wp-site-blocks .nt-pied a:focus-visible{outline:2px solid #ebd3c1!important;outline-offset:3px}
