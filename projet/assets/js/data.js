@@ -9,26 +9,45 @@
   function trier(a, k, desc) { return a.slice().sort(function (x, y) { return (x[k] > y[k] ? 1 : x[k] < y[k] ? -1 : 0) * (desc ? -1 : 1); }); }
   NT.uid = uid;
  
-  /* ---------- Données de départ du mode démonstration ---------- */
+  /* ---------- Chemins des images ----------
+     Les images du site sont enregistrées sous la forme « assets/img/… » (depuis la racine du site).
+     NT.img() ajoute le bon préfixe selon la page (« ../ » pour les pages rangées dans un dossier). */
+  var racineSite = (function () {
+    var sc = document.currentScript && document.currentScript.src;
+    return sc ? sc.replace(/assets\/js\/data\.js(\?.*)?$/, '') : '';
+  })();
+  NT.img = function (u) {
+    if (!u) return '';
+    if (/^(https?:|data:image\/)/i.test(u)) return u;
+    if (/^assets\//.test(u)) return racineSite + u;
+    return '';
+  };
+
+  /* ---------- Données de départ du mode démonstration ----------
+     Les événements « (exemple) » sont fictifs : ils montrent le rendu du calendrier
+     et peuvent être supprimés depuis l'espace membres. */
   function seed() {
-    var auj = new Date();
-    function iso(d) { return d.toISOString().slice(0, 10); }
-    var d1 = new Date(auj.getFullYear(), auj.getMonth(), Math.min(auj.getDate() + 6, 27));
-    var d2 = new Date(d1.getFullYear(), d1.getMonth(), Math.min(d1.getDate() + 8, 28));
     return {
       events: [
-        { id: 'e1', title: 'Festival d’Archéologie Expérimentale d’Occitanie', type: 'festival', start_date: '2027-10-09', end_date: '2027-10-10', time_text: '', place: 'Musée de l’Aurignacien', organizer: 'Musée de l’Aurignacien', booking_url: '', description: 'Démonstrations, expérimentations et échanges.' },
-        { id: 'e2', title: 'Atelier de tissage aux tablettes (exemple)', type: 'tissages', start_date: iso(d1), end_date: iso(d1), time_text: '14 h – 17 h', place: 'Montpellier', organizer: 'Musée exemple', booking_url: 'https://example.org/reservation', description: 'Exemple affiché seulement en mode démonstration.' },
-        { id: 'e3', title: 'Atelier enfant (exemple)', type: 'enfant', start_date: iso(d2), end_date: iso(d2), time_text: '10 h – 12 h', place: 'Montpellier', organizer: '', booking_url: '', description: 'Exemple sans lien de réservation.' }
+        { id: 'e1', title: 'Atelier démonstratif de filage (exemple)', type: 'ateliers', start_date: '2026-11-21', end_date: '2026-11-21', time_text: '14 h – 17 h', place: 'Montpellier', organizer: '', booking_url: '', description: '' },
+        { id: 'e2', title: 'Atelier enfant : tissage sur carton (exemple)', type: 'enfant', start_date: '2026-11-28', end_date: '2026-11-28', time_text: '10 h – 12 h', place: 'Médiathèque, Montpellier', organizer: '', booking_url: '', description: '' },
+        { id: 'e3', title: 'Stage de tissage aux tablettes (exemple)', type: 'tissages', start_date: '2026-12-05', end_date: '2026-12-06', time_text: '9 h 30 – 17 h', place: 'Lattes', organizer: 'Musée exemple', booking_url: 'https://example.org/reservation', description: '' },
+        { id: 'e4', title: 'Démonstration de teinture végétale (exemple)', type: 'ateliers', start_date: '2026-12-16', end_date: '2026-12-16', time_text: '15 h – 18 h', place: 'Musée Henri Prades, Lattes', organizer: '', booking_url: '', description: '' },
+        { id: 'e5', title: 'Atelier enfant : fusaïoles et filage (exemple)', type: 'enfant', start_date: '2027-01-23', end_date: '2027-01-23', time_text: '14 h – 16 h', place: 'Montpellier', organizer: '', booking_url: '', description: '' },
+        { id: 'e6', title: 'Tissage sur métier vertical (exemple)', type: 'tissages', start_date: '2027-02-13', end_date: '2027-02-14', time_text: '10 h – 17 h', place: 'Montpellier', organizer: '', booking_url: '', description: '' },
+        { id: 'e7', title: 'Festival d’Archéologie Expérimentale d’Occitanie', type: 'festival', start_date: '2027-10-09', end_date: '2027-10-10', time_text: '', place: 'Musée de l’Aurignacien', organizer: 'Musée de l’Aurignacien', booking_url: '', description: 'Démonstrations, expérimentations et échanges.' }
       ],
       news: [
         { id: 'n1', title: 'Festival d’Archéologie Expérimentale d’Occitanie', summary: '9 et 10 octobre 2027, avec le musée de l’Aurignacien. Démonstrations, expérimentations et échanges.', body: 'Les 9 et 10 octobre 2027, l’association Néotisse et le musée de l’Aurignacien s’associent pour vous faire découvrir la richesse de l’archéologie expérimentale à l’occasion du tout premier Festival d’Archéologie Expérimentale d’Occitanie.\n\nPendant deux jours, venez à la rencontre d’étudiants, de chercheurs et d’artisans passionnés qui vous feront découvrir cette discipline essentielle à la compréhension des sociétés du passé. Démonstrations, expérimentations et échanges vous permettront d’explorer les techniques et les savoir-faire anciens, de comprendre les gestes de nos ancêtres et de découvrir comment l’expérimentation contribue à faire avancer la recherche archéologique.\n\nUn rendez-vous inédit pour petits et grands, curieux, passionnés d’histoire ou simples visiteurs, qui souhaitent découvrir l’archéologie autrement, au plus près des gestes, des matières et des expériences.\n\nRendez-vous les 9 et 10 octobre 2027 pour faire revivre les savoir-faire du passé et expérimenter l’archéologie autrement !', image_url: 'assets/img/photo-atelier.jpg', published_at: '2026-11-01' }
       ],
       partners: [
-        { id: 'p1', name: 'Site archéologique Lattara, Musée Henri Prades', logo_url: 'assets/img/5f752.jpg', url: '', sort_order: 1 },
-        { id: 'p2', name: 'Musée de Préhistoire de Tautavel', logo_url: 'assets/img/89c2d.png', url: '', sort_order: 2 },
-        { id: 'p3', name: 'Université Paul-Valéry Montpellier 3', logo_url: 'assets/img/cf882.png', url: '', sort_order: 3 },
-        { id: 'p4', name: 'Festival du Lin et de la fibre artistique', logo_url: 'assets/img/ff69a.png', url: '', sort_order: 4 }
+        { id: 'p1', name: 'Festival du Lin et de la fibre artistique', logo_url: 'assets/img/ff69a.png', url: '', sort_order: 1 },
+        { id: 'p2', name: 'Université Paul-Valéry Montpellier 3', logo_url: 'assets/img/cf882.png', url: '', sort_order: 2 },
+        { id: 'p3', name: 'Site archéologique Lattara, Musée Henri Prades', logo_url: 'assets/img/5f752.jpg', url: '', sort_order: 3 },
+        { id: 'p4', name: 'Musée de Préhistoire de Tautavel', logo_url: 'assets/img/89c2d.png', url: '', sort_order: 4 },
+        { id: 'p5', name: 'Musée archéologique de la bataille de Gergovie', logo_url: 'assets/img/logo-musee-gergovie.jpg', url: '', sort_order: 5 },
+        { id: 'p6', name: 'CERAC', logo_url: 'assets/img/logo-cerac.webp', url: '', sort_order: 6 },
+        { id: 'p7', name: 'Lozère Tourisme', logo_url: 'assets/img/logo-lozere-tourisme.png', url: '', sort_order: 7 }
       ],
       reviews: [
         { id: 'r1', created_at: '2026-11-02T10:00:00Z', first_name: 'Camille D.', profile: 'Établissement scolaire', subject: 'Atelier démonstratif', rating: 5, message: 'Une matinée passionnante : les élèves ont filé, tissé et posé mille questions. Les gestes sont expliqués avec une vraie rigueur scientifique, sans jamais perdre les enfants.', status: 'published' },
@@ -40,7 +59,7 @@
  
   /* ---------- Mode démonstration ---------- */
   function Demo() {
-    var KEY = 'nt_demo_v1';
+    var KEY = 'nt_demo_v2'; /* changer ce numéro recharge les données de départ */
     function lire() { try { var s = localStorage.getItem(KEY); if (s) return JSON.parse(s); } catch (e) {} var d = seed(); ecrire(d); return d; }
     function ecrire(d) { try { localStorage.setItem(KEY, JSON.stringify(d)); } catch (e) {} }
     var mem = null;

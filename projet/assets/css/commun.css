@@ -200,3 +200,12 @@
 .wp-site-blocks .nt-pied a{color:#f6f1ea!important}
 .wp-site-blocks .nt-pied a:hover{color:#ebd3c1!important;text-decoration:underline!important;text-underline-offset:3px}
 .wp-site-blocks .nt-pied a:focus-visible{outline:2px solid #ebd3c1!important;outline-offset:3px}
+
+/* Calendrier : bouton « Réserver sur le site de… » (la réservation se fait chez l'organisateur) */
+.nt-ev-liste a.nt-resa{align-self:flex-start;display:inline-block;margin-top:8px;padding:8px 16px;border-radius:999px;background:#8a2a36;color:#fff!important;font-size:13px;font-weight:600;text-decoration:none!important}
+.nt-ev-liste a.nt-resa:hover{background:#72212c}
+.nt-ev-liste a.nt-resa:focus-visible{outline:2px solid #b8613f;outline-offset:3px}
+.nt-sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+/* Partenaires : logo cliquable sans soulignement, nom affiché si pas de logo */
+.nt-logos a{display:block;text-decoration:none!important}
+.nt-logo-nom{display:block;text-align:center;font-family:'Cinzel',Georgia,serif;font-size:15px;line-height:1.3;color:#2b211b}
