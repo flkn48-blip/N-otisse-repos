@@ -43,7 +43,7 @@
 
 /* Bas de la bande : note moyenne, filtres, invitation et formulaire */
 .nt-lv-in{max-width:1120px;margin:0 auto;padding:0 clamp(24px,5vw,64px);color:#f6f1ea}
-.nt-lv-outils{display:flex;justify-content:space-between;align-items:center;gap:20px 32px;flex-wrap:wrap;padding-bottom:clamp(28px,3vw,40px);border-bottom:1px solid rgba(246,241,234,.15)}
+.nt-lv-outils{display:flex;justify-content:space-between;align-items:center;gap:20px 32px;flex-wrap:wrap;padding-bottom:0}
 .nt-lv-note{display:flex;align-items:center;gap:12px}
 .nt-lv-moy{font-family:'Cormorant Garamond',serif;font-size:52px;line-height:1;color:#fffdf9}
 .nt-lv-nb{font-size:14px;color:rgba(246,241,234,.7)}

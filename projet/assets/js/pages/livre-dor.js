@@ -1,4 +1,4 @@
-/* Livre d'or : avis publiés en cartes inclinées dans un carrousel, filtre par atelier,
+/* Livre d'or : avis publiés en cartes inclinées dans un carrousel, note moyenne,
    et formulaire « Laisser un avis » (publié seulement après relecture dans l'espace d'administration).
    Les données passent par NT.api (assets/js/data.js), comme l'espace d'administration. */
 (function(){
@@ -10,22 +10,14 @@ function etoiles(n){n=Math.max(0,Math.min(5,n|0));var s='';for(var i=0;i<5;i++){
 function init(){
 var racine=$('.nt-lv-page');
 if(!racine||!window.NT||!NT.api){return;}
-var piste=$('#nt-lv-piste'),nav=$('.nt-lv-nav',racine),points=$('.nt-lv-points',racine),filtres=$('#nt-lv-filtres'),note=$('#nt-lv-note');
-var avis=[],filtre='';
+var piste=$('#nt-lv-piste'),nav=$('.nt-lv-nav',racine),points=$('.nt-lv-points',racine),note=$('#nt-lv-note');
+var avis=[];
 
 function carte(a){
 var qui=[a.profile,a.subject].filter(Boolean).map(esc).join(' · ');
 return '<article class="nt-av">'+etoiles(a.rating)+
 '<p class="nt-av-txt">'+esc(a.message).replace(/\n/g,'<br>')+'</p>'+
 '<p class="nt-av-qui"><strong>'+esc(a.first_name)+'</strong>'+(qui?'<span>'+qui+'</span>':'')+'</p></article>';
-}
-
-function dessinerFiltres(){
-var sujets=avis.map(function(a){return a.subject;}).filter(function(s,i,t){return s&&t.indexOf(s)===i;});
-if(sujets.length<2){filtres.hidden=true;return;}
-filtres.hidden=false;
-filtres.innerHTML=[''].concat(sujets).map(function(s){return '<button type="button" data-f="'+esc(s)+'" aria-pressed="'+(s===filtre)+'">'+esc(s||'Tous les avis')+'</button>';}).join('');
-$$('button',filtres).forEach(function(b){b.addEventListener('click',function(){filtre=b.getAttribute('data-f');dessiner();});});
 }
 
 /* Points de navigation : une page = ce qui tient dans la largeur visible */
@@ -52,15 +44,13 @@ window.addEventListener('resize',majPoints);
 
 function dessiner(){
 if(!avis.length){
-note.innerHTML='';filtres.hidden=true;nav.hidden=true;
+note.innerHTML='';nav.hidden=true;
 piste.innerHTML='<p class="nt-lv-vide">Le livre d’or attend ses premiers mots. Soyez la première ou le premier à le signer.</p>';
 return;
 }
 var somme=avis.reduce(function(s,a){return s+(a.rating|0);},0),moy=Math.round(somme/avis.length*10)/10;
 note.innerHTML='<span class="nt-lv-moy">'+String(moy).replace('.',',')+'</span>'+etoiles(Math.round(moy))+'<span class="nt-lv-nb">'+avis.length+' avis</span>';
-dessinerFiltres();
-var liste=avis.filter(function(a){return !filtre||a.subject===filtre;});
-piste.innerHTML=liste.map(carte).join('');
+piste.innerHTML=avis.map(carte).join('');
 piste.scrollLeft=0;
 majPoints();
 }
@@ -68,8 +58,6 @@ majPoints();
 NT.api.reviewsPublished().then(function(r){avis=r||[];dessiner();}).catch(function(){
 piste.innerHTML='<p class="nt-lv-vide">Les avis sont momentanément indisponibles.</p>';
 });
-var demo=$('.nt-lv-demo',racine);
-if(demo&&NT.demo){demo.hidden=false;}
 
 /* ----- Laisser un avis ----- */
 var ouvrir=$('#nt-lv-ouvrir'),form=$('#nt-lv-form'),dernier=0;
