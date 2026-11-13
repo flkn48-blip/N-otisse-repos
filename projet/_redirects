@@ -1,0 +1,6 @@
+# Le site tient sur une seule page : les anciennes adresses mènent à leur section (redirection permanente)
+/ateliers/*      /#ateliers     301
+/equipe/*        /#equipe       301
+/actualites/*    /#calendrier   301
+/livre-dor/*     /#livre-dor    301
+/contact/*       /#contact      301

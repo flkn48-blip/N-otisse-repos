@@ -22,9 +22,17 @@ var ta=f.elements.message;
 if(q&&ta&&!ta.value){ta.value='Atelier souhaité : '+q+'\n\n';}
 }
 }catch(e){}
+/* Page unique : les boutons « Demander cet atelier » (section Ateliers) préremplissent le message */
+document.addEventListener('click',function(e){
+var l=e.target.closest&&e.target.closest('a[data-atelier]');
+if(!l){return;}
+var nom=(l.getAttribute('data-atelier')||'').replace(/[\r\n]+/g,' ').trim().slice(0,100);
+var ta=f.elements.message;
+if(nom&&ta&&(!ta.value||/^Atelier souhaité : /.test(ta.value))){ta.value='Atelier souhaité : '+nom+'\n\n';}
+});
 f.addEventListener('submit',function(e){
 e.preventDefault();
-if(sel.value==='Particulier'){window.location.href='../actualites/index.html#calendrier';return;}
+if(sel.value==='Particulier'){var cal=document.getElementById('calendrier');if(cal){if(window.ntLenis){window.ntLenis.scrollTo(cal,{offset:-80});}else{cal.scrollIntoView({behavior:'smooth'});}}else{window.location.href='../index.html#calendrier';}return;}
 if(!f.reportValidity()){return;}
 var nom=f.elements.nom.value.trim();
 var mail=f.elements.email.value.trim();

@@ -100,7 +100,7 @@ var sansSection=liens.filter(function(l){return !l.cible;})[0]||null;
 var tete=document.querySelector('.nt-head');
 function actif(l){
 liens.forEach(function(x){
-var on=x===l;
+var on=!!l&&x===l;
 x.a.classList.toggle('is-actif',on);
 if(on){x.a.setAttribute('aria-current','page');}else{x.a.removeAttribute('aria-current');}
 });
@@ -109,7 +109,7 @@ var attente=false;
 function maj(){
 attente=false;
 var seuil=(tete?tete.offsetHeight:0)+window.innerHeight*0.3;
-var choisi=sansSection||avecSection[0];
+var choisi=sansSection; /* au-dessus de la première section du menu (haut de l'accueil) : rien n'est surligné */
 avecSection.forEach(function(l){if(l.cible.getBoundingClientRect().top<=seuil){choisi=l;}});
 /* tout en bas de la page, la dernière section est forcément celle qu'on regarde */
 if(window.innerHeight+window.scrollY>=document.documentElement.scrollHeight-4){

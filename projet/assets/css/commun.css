@@ -20,7 +20,7 @@
 /* Actualités et calendrier */
 /* Fond du calendrier : sable chaud (plus de rose), dans la continuité de la page Équipe et du vert des actualités */
 .nt-s.nt-calendrier{background:radial-gradient(1100px 480px at 88% -8%,rgba(255,255,255,.5),transparent 62%),#e7dece}
-.nt-s .nt-grille td{height:80px}
+.nt-s .nt-grille td{height:56px}
 .nt-s .nt-jour{font-size:36px!important}
 .nt-s .nt-mois{font-size:19px!important}
 .nt-actu h3{font-size:24px!important}
@@ -227,3 +227,20 @@ html.lenis{scroll-behavior:auto!important}
 .nt-s .nt-at{grid-template-columns:minmax(0,max-content) minmax(260px,1fr)!important}
 .nt-s .nt-at .nt-at-liste{order:-1;padding-right:clamp(8px,1.5vw,20px)!important;border-right:1px solid rgba(246,241,234,.18)!important}
 }
+
+/* Page unique : les titres « Ateliers » et « Contact » sont devenus des titres de section (h2), même apparence qu'avant */
+.nt-s.nt-ateliers h2.nt-titre-ateliers{color:var(--c-creme)!important;margin:0 0 12px!important}
+.nt-s.nt-contact h2.nt-titre-contact{color:#fff!important;margin:0 0 20px!important}
+/* Page unique : ateliers.css utilise aussi le nom « nt-grille » (en grille) ; le calendrier reste un tableau */
+.nt-s table.nt-grille{display:table!important}
+/* Arrivée directe sur une section (#livre-dor…) : elle ne passe pas sous le menu fixe */
+.nt-lv-page{scroll-margin-top:72px}
+
+/* Calendrier plus compact : carte moins large, cases plus basses, marges réduites */
+.nt-s .nt-cal-carte{box-sizing:border-box;max-width:920px;margin-left:0;margin-right:auto;padding:clamp(16px,2.2vw,28px)!important;border-radius:22px}
+.nt-s .nt-cal{grid-template-columns:1fr 220px;gap:clamp(20px,2.6vw,36px)}
+.nt-s table.nt-grille{border-spacing:5px;margin:-5px!important}
+.nt-s .nt-grille td{padding:7px 9px!important;font-size:13px!important;border-radius:11px}
+.nt-s .nt-cal-tete{margin-bottom:clamp(20px,2.4vw,30px)}
+@media (max-width:900px){.nt-s .nt-cal{grid-template-columns:1fr}}
+@media (max-width:600px){.nt-s .nt-grille td{height:46px;padding:5px 6px!important;font-size:12px!important}}
