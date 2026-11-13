@@ -168,3 +168,30 @@ new MutationObserver(function(){preparer(document);}).observe(document.body,{chi
 }
 if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init);}else{init();}
 })();
+
+/* ===== Bandeau d'information sur les cookies =====
+   Le site ne dépose aucun cookie de suivi ni de publicité : il n'y a rien à accepter ni à refuser.
+   Ce bandeau informe simplement le visiteur à sa première visite. Une fois fermé, il ne réapparaît plus
+   (le choix est gardé dans le navigateur ; cette simple mémoire de préférence ne demande pas de consentement). */
+(function(){
+var CLE='nt_info_cookies_vu';
+try{if(localStorage.getItem(CLE)){return;}}catch(e){}
+var script=document.currentScript;
+var racine=script?script.src.replace(/assets\/js\/commun\.js(\?.*)?$/,''):'';
+function init(){
+if(/gestion-des-cookies/.test(location.pathname)){return;} /* inutile sur la page qui l'explique déjà */
+var b=document.createElement('div');
+b.className='nt-cookies';
+b.setAttribute('role','region');
+b.setAttribute('aria-label','Information sur les cookies');
+b.innerHTML='<p>Ce site n’utilise <strong>aucun cookie de suivi ni de publicité</strong>. Vous n’avez rien à accepter. <a href="'+racine+'gestion-des-cookies/index.html">En savoir plus</a></p><button type="button" class="nt-cookies-ok">J’ai compris</button>';
+document.body.appendChild(b);
+requestAnimationFrame(function(){requestAnimationFrame(function(){b.classList.add('is-visible');});});
+b.querySelector('.nt-cookies-ok').addEventListener('click',function(){
+try{localStorage.setItem(CLE,'1');}catch(e){}
+b.classList.remove('is-visible');
+setTimeout(function(){if(b.parentNode){b.parentNode.removeChild(b);}},400);
+});
+}
+if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init);}else{init();}
+})();

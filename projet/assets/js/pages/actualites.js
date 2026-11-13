@@ -182,7 +182,7 @@ NT.api.news().then(function(r){
 r=r||[];
 var h=r.map(function(n,i){return ligne(n,deux(i+1));}).join('');
 zone.innerHTML=h;
-if(fin){fin.removeAttribute('data-lie');fin.classList.remove('is-open');var num=fin.querySelector('.nt-num');if(num){num.textContent=deux(r.length+1);}zone.appendChild(fin);}
+if(fin){fin.removeAttribute('data-lie');fin.classList.remove('is-open');var num=fin.querySelector('.nt-num');if(num){num.textContent='';} /* « Envie de participer ? » n'est pas une actualité : pas de numéro */zone.appendChild(fin);}
 Array.prototype.forEach.call(zone.querySelectorAll('.nt-ligne'),lier);
 }).catch(function(){});
 }
