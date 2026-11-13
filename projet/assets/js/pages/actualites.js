@@ -125,7 +125,7 @@ function ligne(n,num){
 var pars=String(n.body||'').split(/\n{2,}/).filter(function(x){return x.trim();});
 var txt=pars.map(function(x,i){return '<p class="wp-block-paragraph'+(i===pars.length-1&&pars.length>1?' nt-fin':'')+'">'+esc(x).replace(/\n/g,'<br>')+'</p>';}).join('');
 var img=window.NT&&NT.img?NT.img(n.image_url):'';
-var detail=(txt||img)?'<div class="wp-block-group nt-detail"><div class="wp-block-group nt-detail-in"><div class="wp-block-group nt-detail-txt">'+txt+'</div>'+(img?'<figure class="wp-block-image nt-ligne-img"><img src="'+esc(img)+'" alt="'+esc(n.title)+'" loading="lazy"></figure>':'')+'</div></div>':'';
+var detail=(txt||img)?'<div class="wp-block-group nt-detail"><div class="wp-block-group nt-detail-in"><div class="wp-block-group nt-detail-txt">'+txt+'</div>'+(img?'<figure class="wp-block-image nt-ligne-img"><img src="'+esc(img)+'" alt="'+esc(n.image_alt||n.title)+'" loading="lazy"></figure>':'')+'</div></div>':'';
 return '<div class="wp-block-group nt-ligne"><p class="nt-num wp-block-paragraph">'+num+'</p><h3 class="wp-block-heading nt-ligne-titre">'+esc(n.title)+'</h3><p class="nt-resume wp-block-paragraph">'+esc(n.summary)+'</p>'+detail+'</div>';
 }
 function deux(i){return (i<10?'0':'')+i;}

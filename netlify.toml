@@ -1,0 +1,6 @@
+# Configuration Netlify du site Néotisse
+[build]
+  # dossier publié : le site vibecodé
+  publish = "projet"
+  # fonctions serveur (envoi des avis du livre d'or vers Sanity)
+  functions = "netlify/functions"

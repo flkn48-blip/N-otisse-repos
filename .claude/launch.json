@@ -12,6 +12,19 @@
       "runtimeExecutable": "python",
       "runtimeArgs": ["-m", "http.server", "8124"],
       "port": 8124
+    },
+    {
+      "name": "neotisse-8125",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "8125", "--directory", "projet"],
+      "port": 8125,
+      "autoPort": false
+    },
+    {
+      "name": "studio-sanity",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "studio-neotisse", "run", "dev"],
+      "port": 3333
     }
   ]
 }

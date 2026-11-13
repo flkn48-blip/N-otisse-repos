@@ -124,3 +124,47 @@ maj();
 }
 if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init);}else{init();}
 })();
+
+/* ===== Apparitions au défilement : les blocs glissent franchement en entrant dans l'écran =====
+   Le mouvement utilise la propriété « translate » (et non « transform ») pour ne pas écraser
+   l'inclinaison des cartes du livre d'or ni les autres effets. Désactivé si le visiteur réduit les animations. */
+(function(){
+if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches){return;}
+if(!('IntersectionObserver' in window)){return;}
+/* [sélecteur, sens, décalage entre éléments d'un même groupe (s)] */
+var REGLES=[
+['.nt-s h2:not(.nt-hero h2)','haut',0],
+['.nt-s .nt-intro,.nt-s .nt-chapo,.nt-s .nt-texte','haut',0],
+['.nt-s .nt-membre:not(.nt-membre-d)','gauche',0],
+['.nt-s .nt-membre-d','droite',0],
+['.nt-s .nt-cal-carte','haut',0],
+['.nt-lignes .nt-ligne','haut',0.12],
+['.nt-lv-piste .nt-av','haut',0.12],
+['.nt-s figure.nt-photo','droite',0],
+['.nt-s .nt-form,.nt-s .nt-liste .nt-item','haut',0.1],
+['.nt-lv-hero-in','haut',0]
+];
+function preparer(racine){
+REGLES.forEach(function(r){
+var els=(racine||document).querySelectorAll(r[0]);
+Array.prototype.forEach.call(els,function(el,i){
+if(el.classList.contains('nt-ap')){return;}
+el.classList.add('nt-ap','nt-ap-'+r[1]);
+if(r[2]){el.style.transitionDelay=(Math.min(i,6)*r[2])+'s';}
+io.observe(el);
+});
+});
+}
+var io=new IntersectionObserver(function(es){
+es.forEach(function(e){if(e.isIntersecting){var el=e.target;el.classList.add('is-vu');io.unobserve(el);
+/* une fois arrivé, on retire le décalage pour que les effets de survol restent immédiats */
+if(el.style.transitionDelay){setTimeout(function(){el.style.transitionDelay='';},1600);}}});
+},{threshold:0.15,rootMargin:'0px 0px -8% 0px'});
+function init(){
+document.documentElement.classList.add('nt-ap-actif');
+preparer(document);
+/* contenus chargés plus tard depuis Sanity (avis, actualités) */
+new MutationObserver(function(){preparer(document);}).observe(document.body,{childList:true,subtree:true});
+}
+if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init);}else{init();}
+})();

@@ -244,3 +244,21 @@ html.lenis{scroll-behavior:auto!important}
 .nt-s .nt-cal-tete{margin-bottom:clamp(20px,2.4vw,30px)}
 @media (max-width:900px){.nt-s .nt-cal{grid-template-columns:1fr}}
 @media (max-width:600px){.nt-s .nt-grille td{height:46px;padding:5px 6px!important;font-size:12px!important}}
+
+/* Apparitions au défilement (commun.js) : un vrai glissement, le fondu ne sert qu'au tout début */
+.nt-ap-actif .nt-ap{opacity:0;transition:opacity .35s ease-out,translate .95s cubic-bezier(.16,1,.3,1)}
+.nt-ap-actif .nt-ap-haut{translate:0 70px}
+.nt-ap-actif .nt-ap-gauche{translate:-120px 0}
+.nt-ap-actif .nt-ap-droite{translate:120px 0}
+.nt-ap-actif .nt-ap.is-vu{opacity:1;translate:0 0}
+@media (max-width:700px){.nt-ap-actif .nt-ap-gauche{translate:-48px 0}.nt-ap-actif .nt-ap-droite{translate:48px 0}.nt-ap-actif .nt-ap-haut{translate:0 44px}}
+@media (prefers-reduced-motion:reduce){.nt-ap-actif .nt-ap{opacity:1!important;translate:none!important;transition:none!important}}
+
+/* Ateliers : changement d'atelier plus franc (le texte glisse, la photo se dévoile de bas en haut) */
+@keyframes ntAtGlisse{from{opacity:0;translate:0 36px}to{opacity:1;translate:0 0}}
+@keyframes ntAtImg{from{clip-path:inset(100% 0 0 0);scale:1.08}to{clip-path:inset(0 0 0 0);scale:1}}
+.nt-s .nt-at-anim .nt-at-panneaux{animation:ntAtGlisse .6s cubic-bezier(.16,1,.3,1) both!important}
+.nt-s .nt-img-anim img{animation:ntAtImg .8s cubic-bezier(.65,0,.35,1) both!important}
+@media (prefers-reduced-motion:reduce){.nt-s .nt-at-anim .nt-at-panneaux,.nt-s .nt-img-anim img{animation:none!important}}
+/* les cartes du livre d'or gardent leur redressement au survol en plus du glissement d'arrivée */
+.nt-ap-actif .nt-av.nt-ap{transition:opacity .35s ease-out,translate .95s cubic-bezier(.16,1,.3,1),transform .3s cubic-bezier(.2,.7,.2,1)}
