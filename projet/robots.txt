@@ -1,0 +1,6 @@
+# Néotisse : tout le site peut être indexé, sauf l'ancienne entrée de l'espace membres
+User-agent: *
+Disallow: /admin/
+
+# Plan du site : remplacer DOMAINE-DU-SITE par l'adresse définitive au moment de la mise en ligne
+Sitemap: https://DOMAINE-DU-SITE/sitemap.xml

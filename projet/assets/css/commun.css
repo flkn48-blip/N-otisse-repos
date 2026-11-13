@@ -343,3 +343,13 @@ html.lenis{scroll-behavior:auto!important}
 .nt-cookies .nt-cookies-ok:focus-visible{outline:2px solid #b8613f;outline-offset:2px}
 @media (max-width:520px){.nt-cookies{flex-direction:column;align-items:stretch;left:12px;right:12px;max-width:none}.nt-cookies .nt-cookies-ok{text-align:center}}
 @media (prefers-reduced-motion:reduce){.nt-cookies{transition:none}}
+
+/* Page d'erreur 404 */
+.nt-s.nt-404{min-height:60vh;display:flex;align-items:center}
+.nt-s.nt-404 .nt-in{width:100%}
+.nt-404-code{margin:0 0 8px!important;font-family:'Cinzel',Georgia,serif;font-size:clamp(64px,10vw,128px);line-height:1;color:#ebd3c1}
+.nt-s.nt-404 p.wp-block-paragraph{max-width:52ch}
+.nt-404-liens{display:flex;flex-wrap:wrap;align-items:center;gap:14px 26px;margin-top:28px!important}
+.nt-404-liens a{color:#8a2a36!important;font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.nt-404-liens a.nt-404-btn{display:inline-block;padding:13px 24px;border-radius:999px;background:#8a2a36;color:#fff!important;text-decoration:none}
+.nt-404-liens a.nt-404-btn:hover{background:#72212c}

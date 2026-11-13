@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Plan du site pour les moteurs de recherche.
+     Au moment de la mise en ligne, remplacer DOMAINE-DU-SITE par l'adresse définitive (ex. neotisse.fr). -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://DOMAINE-DU-SITE/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://DOMAINE-DU-SITE/mentions-legales/</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
+  <url><loc>https://DOMAINE-DU-SITE/politique-de-confidentialite/</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
+  <url><loc>https://DOMAINE-DU-SITE/gestion-des-cookies/</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
+</urlset>

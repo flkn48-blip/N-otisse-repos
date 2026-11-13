@@ -41,8 +41,10 @@ if(!nom||!mail||!msg){afficherErreur('Merci de renseigner votre nom, votre adres
 err.classList.remove('is-visible');
 btn.disabled=true;
 btn.textContent='Envoi en cours…';
-fetch('/?rest_route=/neotisse/v1/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nom:nom,email:mail,profil:sel.value,message:msg,site:f.elements.site.value})})
-.then(function(r){return r.json().catch(function(){return {};}).then(function(d){return {ok:r.ok&&d.ok!==false,d:d};});})
+/* Envoi par Netlify Forms : le message arrive dans Netlify (onglet Forms) et par e-mail à l'association.
+   Le champ piège « site » est ignoré par Netlify (netlify-honeypot), ce qui écarte les robots. */
+fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(new FormData(f)).toString()})
+.then(function(r){return {ok:r.ok,d:{}};})
 .then(function(res){
 if(res.ok){f.classList.add('is-envoye');return;}
 btn.disabled=false;maj();
