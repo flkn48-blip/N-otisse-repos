@@ -6,8 +6,6 @@ function ntJours(evts){var m={};evts.forEach(function(e){var d=new Date(e.d+'T12
 /* Version de secours : le Festival, déjà présent dans la page */
 window.NT_EVTS=ntEnEvts([{title:'Festival d’Archéologie Expérimentale d’Occitanie',type:'festival',start_date:'2027-10-09',end_date:'2027-10-10',place:'Musée de l’Aurignacien'}]);
 
-(function(){var m={};window.NT_EVTS.forEach(function(e){var d=new Date(e.d+'T12:00:00'),f=new Date(e.f+'T12:00:00');for(;d<=f;d.setDate(d.getDate()+1)){var k=d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);if(!m[k]){m[k]=e.ty;}}});return m;})();
-
 (function(){
 function init(){
 var racine=document.querySelector('.nt-calendrier')||document;
@@ -34,8 +32,45 @@ function jourFr(iso){var p=iso.split('-');return parseInt(p[2],10)+' '+MOIS[pars
 function dates(e){return e.d===e.f?jourFr(e.d):'du '+jourFr(e.d)+' au '+jourFr(e.f);}
 function titresDuJour(iso){return EVTS.filter(function(e){return e.d<=iso&&iso<=e.f;}).map(function(e){return esc(e.t);}).join(' · ');}
 /* Bouton de réservation : renvoie vers le site de la structure organisatrice (aucune réservation sur ce site) */
-function resa(e){if(!/^https?:\/\//i.test(e.u)){return '';}return '<a class="nt-resa" href="'+esc(e.u)+'" target="_blank" rel="noopener noreferrer">Réserver sur le site '+(e.o?'de '+esc(e.o):'de l’organisateur')+'<span class="nt-sr"> (nouvel onglet)</span></a>';}
-function ligne(e){return '<li><span class="nt-ev-pt nt-pt-'+e.ty+'"></span><div><strong>'+esc(e.t)+'</strong><span>'+dates(e)+(e.h?' · '+esc(e.h):'')+(e.l?' · '+esc(e.l):'')+'</span>'+(e.desc?'<span>'+esc(e.desc)+'</span>':'')+resa(e)+'</div></li>';}
+function resa(e){if(!/^https?:\/\//i.test(e.u)){return '';}return '<a class="nt-resa" href="'+esc(e.u)+'" target="_blank" rel="noopener noreferrer"><span>Réserver sur le site '+(e.o?'de '+esc(e.o):'de l’organisateur')+'</span><span class="nt-resa-fl" aria-hidden="true">↗</span><span class="nt-sr"> (nouvel onglet)</span></a>';}
+/* Fiche d'un jour : s'ouvre à côté de la case cliquée, avec les détails et le bouton de réservation */
+function fiche(e){return '<div class="nt-pop-ev"><div><strong>'+esc(e.t)+'</strong><span class="nt-pop-meta">'+dates(e)+(e.h?' · '+esc(e.h):'')+(e.l?'<br>'+esc(e.l):'')+'</span>'+(e.desc?'<span class="nt-pop-desc">'+esc(e.desc)+'</span>':'')+(resa(e)||(e.o?'<span class="nt-pop-note">Informations auprès de '+esc(e.o)+'.</span>':''))+'</div></div>';}
+var pop=null,caseOuverte=null;
+function fermerFiche(){if(pop){pop.hidden=true;}if(caseOuverte){caseOuverte.setAttribute('aria-expanded','false');caseOuverte=null;}}
+var survolActif=window.matchMedia&&window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+var minuteur=null;
+function fermerBientot(){clearTimeout(minuteur);minuteur=setTimeout(fermerFiche,250);}
+function ouvrirFiche(b,parSurvol){
+var carte=racine.querySelector('.nt-cal-carte');
+if(!carte){return;}
+if(caseOuverte===b){fermerFiche();return;}
+fermerFiche();
+if(!pop){
+pop=document.createElement('div');pop.className='nt-pop';pop.setAttribute('role','dialog');pop.hidden=true;
+carte.appendChild(pop);
+pop.addEventListener('click',function(e){if(e.target.closest('.nt-pop-x')){fermerFiche();}});
+pop.addEventListener('mouseenter',function(){clearTimeout(minuteur);});
+pop.addEventListener('mouseleave',function(){if(survolActif){fermerBientot();}});
+}
+var iso=b.getAttribute('data-jour');
+var evs=EVTS.filter(function(e){return e.d<=iso&&iso<=e.f;});
+pop.setAttribute('aria-label','Événements du '+jourFr(iso));
+pop.innerHTML='<button type="button" class="nt-pop-x" aria-label="Fermer">×</button><p class="nt-pop-jour">'+jourFr(iso)+'</p>'+evs.map(fiche).join('');
+pop.hidden=false;
+/* placement : sous la case, aligné sur elle, sans dépasser de la carte */
+var rc=carte.getBoundingClientRect(),rb=b.getBoundingClientRect();
+var larg=Math.min(320,rc.width-24);pop.style.width=larg+'px';
+var g=rb.left-rc.left;g=Math.max(12,Math.min(g,rc.width-larg-12));
+pop.style.left=g+'px';
+/* sous la case s'il y a la place dans la carte, sinon au-dessus */
+var haut=pop.offsetHeight,dessous=rb.bottom-rc.top+8;
+pop.style.top=(dessous+haut>rc.height-8&&rb.top-rc.top-haut-8>=8?(rb.top-rc.top-haut-8):dessous)+'px';
+b.setAttribute('aria-expanded','true');caseOuverte=b;
+if(!parSurvol){var x=pop.querySelector('.nt-pop-x');if(x){x.focus({preventScroll:true});}}
+}
+document.addEventListener('click',function(e){if(pop&&!pop.hidden&&!pop.contains(e.target)&&!(e.target.closest&&e.target.closest('.nt-jour-ev'))){fermerFiche();}});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&pop&&!pop.hidden){var c=caseOuverte;fermerFiche();if(c){c.focus();}}});
+/* Sous la grille : une seule ligne d'aide (plus de liste détaillée) */
 function detail(o){
 var carte=racine.querySelector('.nt-cal-carte');
 if(!carte){return;}
@@ -44,7 +79,7 @@ if(!cont){cont=document.createElement('div');cont.className='nt-ev-liste';carte.
 var debut=o.a+'-'+pad(o.m+1)+'-01';
 var fin=o.a+'-'+pad(o.m+1)+'-'+pad(new Date(o.a,o.m+1,0).getDate());
 var evs=EVTS.filter(function(e){return e.d<=fin&&e.f>=debut;});
-if(evs.length){cont.innerHTML='<ul>'+evs.map(ligne).join('')+'</ul>';return;}
+if(evs.length){cont.innerHTML='<p class="nt-ev-vide">Cliquez sur une réservation pour voir les détails.</p>';return;}
 var suite=EVTS.filter(function(e){return e.d>fin;})[0];
 cont.innerHTML='<p class="nt-ev-vide">Aucun événement prévu ce mois-ci.'+(suite?' Prochain rendez-vous : <strong>'+esc(suite.t)+'</strong>, '+dates(suite)+'.':'')+'</p>';
 }
@@ -68,11 +103,18 @@ var cls=[];
 if(t&&NOMS[t]){cls.push('nt-c-'+t);}
 if(i===0&&jour===auj.getDate()){cls.push('nt-auj');}
 var tit=t?titresDuJour(iso):'';
-html+='<td'+(cls.length?' class="'+cls.join(' ')+'"':'')+(tit?' title="'+tit+'"':'')+'>'+jour+(t&&NOMS[t]?'<span class="nt-sr"> : '+(tit||NOMS[t])+'</span>':'')+'</td>';
+html+='<td'+(cls.length?' class="'+cls.join(' ')+'"':'')+'>'+(t&&NOMS[t]?'<button type="button" class="nt-jour-ev" data-jour="'+iso+'" aria-expanded="false" title="'+tit+'">'+jour+'<span class="nt-sr"> : '+(tit||NOMS[t])+', voir le détail</span></button>':jour)+'</td>';
 }
 html+='</tr>';
 }
+fermerFiche();
 corps.innerHTML=html;
+Array.prototype.forEach.call(corps.querySelectorAll('.nt-jour-ev'),function(b){
+/* souris : la fiche s'ouvre au survol ; doigt et clavier : au clic */
+b.addEventListener('click',function(){if(survolActif&&caseOuverte===b){return;}ouvrirFiche(b);});
+b.addEventListener('mouseenter',function(){if(!survolActif){return;}clearTimeout(minuteur);if(caseOuverte!==b){ouvrirFiche(b,true);}});
+b.addEventListener('mouseleave',function(){if(survolActif){fermerBientot();}});
+});
 detail(o);
 if(menu){Array.prototype.forEach.call(menu.querySelectorAll('button'),function(b,k){b.setAttribute('aria-selected',k===i?'true':'false');});}
 }
