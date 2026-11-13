@@ -209,3 +209,21 @@
 /* Partenaires : logo cliquable sans soulignement, nom affiché si pas de logo */
 .nt-logos a{display:block;text-decoration:none!important}
 .nt-logo-nom{display:block;text-align:center;font-family:'Cinzel',Georgia,serif;font-size:15px;line-height:1.3;color:#2b211b}
+
+/* Défilement fluide (Lenis) : réglages recommandés par la bibliothèque */
+html.lenis,html.lenis body{height:auto}
+/* Lenis gère lui-même la douceur : on coupe le défilement doux du navigateur, sinon les deux se battent */
+html.lenis{scroll-behavior:auto!important}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+.lenis.lenis-smooth [data-lenis-prevent]{overscroll-behavior:contain}
+.lenis.lenis-stopped{overflow:hidden}
+/* Texte qui se remplit au défilement (le script ajoute la classe ; sans script, le texte reste normal) */
+.nt-remplir .nt-mot{color:#cdbba5;transition:color .35s ease}
+.nt-remplir .nt-mot.is-on{color:inherit}
+
+/* Page Ateliers : le sélecteur à gauche, le détail puis la photo à droite (ordinateur) */
+@media (min-width:901px){
+.nt-ateliers .nt-cols{flex-direction:row-reverse!important}
+.nt-s .nt-at{grid-template-columns:minmax(0,max-content) minmax(260px,1fr)!important}
+.nt-s .nt-at .nt-at-liste{order:-1;padding-right:clamp(8px,1.5vw,20px)!important;border-right:1px solid rgba(246,241,234,.18)!important}
+}
