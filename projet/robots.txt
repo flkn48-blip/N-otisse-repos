@@ -2,5 +2,5 @@
 User-agent: *
 Disallow: /admin/
 
-# Plan du site : remplacer DOMAINE-DU-SITE par l'adresse définitive au moment de la mise en ligne
-Sitemap: https://DOMAINE-DU-SITE/sitemap.xml
+# Plan du site (adresse Netlify actuelle ; à changer si le site prend un nom de domaine)
+Sitemap: https://neotissevb.netlify.app/sitemap.xml
