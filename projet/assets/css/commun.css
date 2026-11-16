@@ -353,3 +353,12 @@ html.lenis{scroll-behavior:auto!important}
 .nt-404-liens a{color:#8a2a36!important;font-weight:600;text-decoration:underline;text-underline-offset:3px}
 .nt-404-liens a.nt-404-btn{display:inline-block;padding:13px 24px;border-radius:999px;background:#8a2a36;color:#fff!important;text-decoration:none}
 .nt-404-liens a.nt-404-btn:hover{background:#72212c}
+
+/* Titre « Néotisse » du haut de l'accueil : blanc (les styles des anciennes pages Ateliers et Contact le repassaient en brun) */
+.nt-s.nt-hero h1{color:#fff!important}
+
+/* Pied de page : logo en crème sur le fond brun */
+.wp-site-blocks .nt-pied .nt-pied-logo{display:inline-block;margin:0 0 14px;line-height:0}
+.nt-pied-logo img{display:block;width:clamp(110px,10vw,140px);height:auto;filter:brightness(0) invert(1);opacity:.95;transition:opacity .2s}
+.wp-site-blocks .nt-pied .nt-pied-logo:hover{text-decoration:none!important}
+.nt-pied-logo:hover img{opacity:1}
