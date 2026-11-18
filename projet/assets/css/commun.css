@@ -362,3 +362,12 @@ html.lenis{scroll-behavior:auto!important}
 .nt-pied-logo img{display:block;width:clamp(110px,10vw,140px);height:auto;filter:brightness(0) invert(1);opacity:.95;transition:opacity .2s}
 .wp-site-blocks .nt-pied .nt-pied-logo:hover{text-decoration:none!important}
 .nt-pied-logo:hover img{opacity:1}
+
+/* ===== Mobile ===== */
+/* Rien ne doit dépasser sur le côté (blocs qui glissent en apparaissant, bandes qui défilent) : la page ne bouge plus latéralement */
+html,body{overflow-x:clip}
+.wp-site-blocks{overflow-x:clip}
+/* Sélecteur d'ateliers : pas de décalage vers la droite sur petit écran, le bouton restait coupé */
+@media (max-width:900px){
+.nt-s .nt-at .nt-at-liste button:hover,.nt-s .nt-at .nt-at-liste button[aria-selected=true]{transform:none}
+}
