@@ -169,29 +169,64 @@ new MutationObserver(function(){preparer(document);}).observe(document.body,{chi
 if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init);}else{init();}
 })();
 
-/* ===== Bandeau d'information sur les cookies =====
-   Le site ne dépose aucun cookie de suivi ni de publicité : il n'y a rien à accepter ni à refuser.
-   Ce bandeau informe simplement le visiteur à sa première visite. Une fois fermé, il ne réapparaît plus
-   (le choix est gardé dans le navigateur ; cette simple mémoire de préférence ne demande pas de consentement). */
+/* ===== Bandeau de consentement aux cookies et mesure d'audience =====
+   Google Analytics (via Google Tag Manager, conteneur GTM-N7LSCRBF) n'est chargé qu'après un clic sur « Accepter ».
+   Tant que le visiteur n'a pas choisi, ou s'il refuse, aucun script Google n'est chargé et aucun cookie n'est déposé.
+   Le choix est gardé dans le navigateur (localStorage, clé nt_cookies_choix) ; « Refuser » est aussi simple qu'« Accepter ».
+   Le choix peut être changé à tout moment depuis la page « Gestion des cookies ». */
 (function(){
-var CLE='nt_info_cookies_vu';
-try{if(localStorage.getItem(CLE)){return;}}catch(e){}
+var CLE='nt_cookies_choix';
+var GTM='GTM-N7LSCRBF';
 var script=document.currentScript;
 var racine=script?script.src.replace(/assets\/js\/commun\.js(\?.*)?$/,''):'';
-function init(){
-if(/gestion-des-cookies/.test(location.pathname)){return;} /* inutile sur la page qui l'explique déjà */
+function lire(){try{return localStorage.getItem(CLE);}catch(e){return null;}}
+function ecrire(v){try{if(v){localStorage.setItem(CLE,v);}else{localStorage.removeItem(CLE);}}catch(e){}}
+function chargerMesure(){
+if(window.ntMesureChargee){return;}
+window.ntMesureChargee=true;
+window.dataLayer=window.dataLayer||[];
+window.dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});
+var g=document.createElement('script');g.async=true;
+g.src='https://www.googletagmanager.com/gtm.js?id='+GTM;
+document.head.appendChild(g);
+}
+function supprimerCookiesGoogle(){
+var noms=document.cookie.split(';');
+for(var i=0;i<noms.length;i++){
+var n=noms[i].split('=')[0].trim();
+if(/^(_ga|_gid|_gat|_gcl)/.test(n)){
+document.cookie=n+'=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
+document.cookie=n+'=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; domain='+location.hostname;
+}
+}
+}
+if(lire()==='accepte'){chargerMesure();}
+function afficher(){
+if(document.querySelector('.nt-cookies')){return;}
 var b=document.createElement('div');
 b.className='nt-cookies';
 b.setAttribute('role','region');
-b.setAttribute('aria-label','Information sur les cookies');
-b.innerHTML='<p>Ce site n’utilise <strong>aucun cookie de suivi ni de publicité</strong>. Vous n’avez rien à accepter. <a href="'+racine+'gestion-des-cookies/index.html">En savoir plus</a></p><button type="button" class="nt-cookies-ok">J’ai compris</button>';
+b.setAttribute('aria-label','Consentement aux cookies');
+b.innerHTML='<p><strong>Votre avis sur les cookies</strong><br>Néotisse mesure l’audience de son site avec Google Analytics. Cet outil ne dépose de cookies que si vous acceptez. <a href="'+racine+'gestion-des-cookies/index.html">En savoir plus : Gestion des cookies</a></p><div class="nt-cookies-actions"><button type="button" class="nt-cookies-non">Refuser</button><button type="button" class="nt-cookies-ok">Accepter</button></div>';
 document.body.appendChild(b);
 requestAnimationFrame(function(){requestAnimationFrame(function(){b.classList.add('is-visible');});});
-b.querySelector('.nt-cookies-ok').addEventListener('click',function(){
-try{localStorage.setItem(CLE,'1');}catch(e){}
-b.classList.remove('is-visible');
-setTimeout(function(){if(b.parentNode){b.parentNode.removeChild(b);}},400);
-});
+function fermer(){b.classList.remove('is-visible');setTimeout(function(){if(b.parentNode){b.parentNode.removeChild(b);}},400);}
+b.querySelector('.nt-cookies-ok').addEventListener('click',function(){ecrire('accepte');chargerMesure();fermer();majBoutons();});
+b.querySelector('.nt-cookies-non').addEventListener('click',function(){ecrire('refuse');supprimerCookiesGoogle();fermer();majBoutons();});
+}
+/* Page « Gestion des cookies » : boutons pour changer son choix à tout moment */
+function majBoutons(){
+var etat=document.querySelector('[data-nt-cookies-etat]');
+if(etat){var c=lire();etat.textContent=c==='accepte'?'Vous avez accepté la mesure d’audience.':(c==='refuse'?'Vous avez refusé la mesure d’audience.':'Vous n’avez pas encore fait de choix.');}
+}
+function init(){
+var page=/gestion-des-cookies/.test(location.pathname);
+var oui=document.querySelector('[data-nt-cookies-accepter]');
+var non=document.querySelector('[data-nt-cookies-refuser]');
+if(oui){oui.addEventListener('click',function(){ecrire('accepte');chargerMesure();majBoutons();});}
+if(non){non.addEventListener('click',function(){ecrire('refuse');supprimerCookiesGoogle();majBoutons();});}
+majBoutons();
+if(!lire()&&!page){afficher();}
 }
 if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init);}else{init();}
 })();
