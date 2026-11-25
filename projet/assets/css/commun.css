@@ -379,3 +379,7 @@ html,body{overflow-x:clip}
 .nt-cookies-page.nt-cookies-ok{background:#2b211b;color:#f6f1ea}
 .nt-cookies-page.nt-cookies-non{background:transparent;color:#2b211b;box-shadow:inset 0 0 0 1.5px #2b211b}
 .nt-cookies-page:focus-visible{outline:2px solid #b8613f;outline-offset:2px}
+
+/* Accès discret administration et statistiques (pied de page) : protégés par les comptes Sanity et Google, pas par le site */
+.wp-site-blocks .nt-pied .nt-pied-admin{margin:6px 0 0;font-size:13px;opacity:.75}
+.wp-site-blocks .nt-pied .nt-pied-admin a{text-decoration:underline;text-underline-offset:3px}

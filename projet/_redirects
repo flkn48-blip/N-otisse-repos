@@ -10,3 +10,6 @@
 /admin           https://neotisse.sanity.studio   302!
 /admin/*         https://neotisse.sanity.studio   302!
 /gestion         https://neotisse.sanity.studio   302!
+
+# Tableau de bord des statistiques (Looker Studio) : accès réservé aux comptes Google invités au rapport.
+/statistiques    https://lookerstudio.google.com/reporting/1fea169f-450d-480b-9201-3beee3e65191   302!
