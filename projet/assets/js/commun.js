@@ -170,13 +170,13 @@ if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded'
 })();
 
 /* ===== Bandeau de consentement aux cookies et mesure d'audience =====
-   Google Analytics (via Google Tag Manager, conteneur GTM-N7LSCRBF) n'est chargé qu'après un clic sur « Accepter ».
+   Google Analytics (via Google Tag Manager, conteneur GTM-KT54PCW3) n'est chargé qu'après un clic sur « Accepter ».
    Tant que le visiteur n'a pas choisi, ou s'il refuse, aucun script Google n'est chargé et aucun cookie n'est déposé.
    Le choix est gardé dans le navigateur (localStorage, clé nt_cookies_choix) ; « Refuser » est aussi simple qu'« Accepter ».
    Le choix peut être changé à tout moment depuis la page « Gestion des cookies ». */
 (function(){
 var CLE='nt_cookies_choix';
-var GTM='GTM-N7LSCRBF';
+var GTM='GTM-KT54PCW3';
 var script=document.currentScript;
 var racine=script?script.src.replace(/assets\/js\/commun\.js(\?.*)?$/,''):'';
 function lire(){try{return localStorage.getItem(CLE);}catch(e){return null;}}
