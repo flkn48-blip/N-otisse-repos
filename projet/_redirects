@@ -5,3 +5,8 @@
 /actualites/*    /#calendrier   301!
 /livre-dor/*     /#livre-dor    301!
 /contact/*       /#contact      301!
+
+# Adresse directe vers l'espace de gestion des contenus (Studio Sanity) : redirection temporaire, jamais mise en cache.
+/admin           https://neotisse.sanity.studio   302!
+/admin/*         https://neotisse.sanity.studio   302!
+/gestion         https://neotisse.sanity.studio   302!
