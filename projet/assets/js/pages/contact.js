@@ -46,7 +46,7 @@ btn.textContent='Envoi en cours…';
 fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(new FormData(f)).toString()})
 .then(function(r){return {ok:r.ok,d:{}};})
 .then(function(res){
-if(res.ok){f.classList.add('is-envoye');return;}
+if(res.ok){f.classList.add('is-envoye');if(window.ntEvt){window.ntEvt('generate_lead',{structure_type:sel.value});}return;}
 btn.disabled=false;maj();
 afficherErreur((res.d&&res.d.message)||'Le message n’a pas pu être envoyé. Merci de réessayer plus tard.');
 })

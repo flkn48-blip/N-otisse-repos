@@ -85,7 +85,7 @@ if(Date.now()-dernier<30000){return dire('Merci de patienter quelques secondes a
 var bt=$('button[type=submit]',form);
 bt.disabled=true;dire('Envoi en cours…','');
 NT.api.submitReview(d).then(function(){
-dernier=Date.now();form.classList.add('is-envoye');
+dernier=Date.now();form.classList.add('is-envoye');if(window.ntEvt){window.ntEvt('envoi_avis',{form_name:'livre_dor'});}
 dire('Merci ! Votre avis sera publié après relecture par l’association.','is-ok');
 }).catch(function(){bt.disabled=false;dire('Une erreur est survenue. Merci de réessayer.','is-err');});
 });

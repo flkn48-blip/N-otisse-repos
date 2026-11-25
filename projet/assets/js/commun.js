@@ -230,3 +230,32 @@ if(!lire()&&!page){afficher();}
 }
 if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init);}else{init();}
 })();
+
+/* ===== Événements de mesure (plan de taggage) =====
+   Envoyés à Google Tag Manager seulement si le visiteur a accepté la mesure d'audience.
+   Événements : generate_lead (demande d'atelier envoyée, voir pages/contact.js), envoi_avis (voir pages/livre-dor.js),
+   click_demande_atelier, click_evenement, click_contact. */
+(function(){
+window.ntEvt=function(nom,params){
+var ok=false;try{ok=localStorage.getItem('nt_cookies_choix')==='accepte';}catch(e){}
+if(!ok){return;}
+window.dataLayer=window.dataLayer||[];
+var o={event:nom};for(var k in (params||{})){o[k]=params[k];}
+window.dataLayer.push(o);
+};
+document.addEventListener('click',function(e){
+var a=e.target.closest?e.target.closest('a'):null;
+if(!a){return;}
+var h=a.getAttribute('href')||'';
+if(a.classList.contains('nt-resa')){
+var carte=a.closest('li,article,div');var t=carte&&carte.querySelector('h3,h4,strong');
+window.ntEvt('click_evenement',{event_name:t?t.textContent.trim().slice(0,100):''});
+}else if(/^mailto:/i.test(h)){
+window.ntEvt('click_contact',{contact_type:'email'});
+}else if(/#contact$/.test(h)){
+var sec=a.closest('section');
+var lieu=a.classList.contains('nt-nav-cta')?'menu':(sec&&sec.id?sec.id:'page');
+window.ntEvt('click_demande_atelier',{cta_location:lieu});
+}
+});
+})();
