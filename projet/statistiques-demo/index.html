@@ -28,14 +28,14 @@ svg{width:100%;height:auto;display:block}
 .bar div.t{height:10px;background:var(--line);border-radius:6px;overflow:hidden}
 .bar div.t div{height:100%;background:var(--s1);border-radius:6px}
 .bar span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-</style></head><body>
+select{font:inherit;font-size:13px;letter-spacing:.04em;text-transform:capitalize;color:var(--accent);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:7px 14px;margin-left:8px;cursor:pointer}</style></head><body>
 <div class="wrap">
-<header><div><h1>Analytics Néotisse</h1></div><div class="sub">Novembre 2026</div></header>
+<header><div><h1>Analytics Néotisse</h1></div><label class="sub" for="mois">Mois <select id="mois"></select></label></header>
 <div class="grid kpis">
-<div class="card"><h2>Visites du site</h2><div class="big">1 284</div><div class="delta">+18 % vs mois précédent</div></div>
-<div class="card"><h2>Demandes d'atelier envoyées</h2><div class="big">23</div><div class="delta">+4 vs mois précédent</div></div>
-<div class="card"><h2>Clics « Demander un atelier »</h2><div class="big">96</div><div class="delta">+12 vs mois précédent</div></div>
-<div class="card"><h2>Avis envoyés</h2><div class="big">9</div><div class="delta">+2 vs mois précédent</div></div>
+<div class="card"><h2>Visites du site</h2><div class="big" id="k0"></div><div class="delta" id="d0"></div></div>
+<div class="card"><h2>Demandes d'atelier envoyées</h2><div class="big" id="k1"></div><div class="delta" id="d1"></div></div>
+<div class="card"><h2>Clics « Demander un atelier »</h2><div class="big" id="k2"></div><div class="delta" id="d2"></div></div>
+<div class="card"><h2>Avis envoyés</h2><div class="big" id="k3"></div><div class="delta" id="d3"></div></div>
 </div>
 <div class="grid row">
 <div class="card"><h2>Visites par jour</h2><svg id="area" viewBox="0 0 700 260"></svg></div>
@@ -47,21 +47,41 @@ svg{width:100%;height:auto;display:block}
 </div>
 </div>
 <script>
-var d=[22,31,28,35,40,26,24,38,45,41,36,48,52,33,29,44,50,47,55,60,38,35,51,58,62,57,66,70,45,42];
-var W=700,H=260,p=28,mx=80;
+var MOIS=[['Juillet 2026',2026,6],['Août 2026',2026,7],['Septembre 2026',2026,8],['Octobre 2026',2026,9],['Novembre 2026',2026,10]];
+var FACT=[.42,.55,.7,.85,1];
+function rng(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+var BASE=[22,31,28,35,40,26,24,38,45,41,36,48,52,33,29,44,50,47,55,60,38,35,51,58,62,57,66,70,45,42,50];
+function gen(m){var r=rng(m*97+13),n=new Date(MOIS[m][1],MOIS[m][2]+1,0).getDate(),f=FACT[m];
+var d=[];for(var i=0;i<n;i++)d.push(Math.max(4,Math.round(BASE[i]*f*(.85+r()*.3))));
+var tot=d.reduce(function(a,b){return a+b},0);
+var sh=[46,24,18,12].map(function(x,i){return Math.max(5,Math.round(x+(r()-.5)*8))});var ss=sh.reduce(function(a,b){return a+b},0);sh=sh.map(function(x){return Math.round(x/ss*100)});sh[0]+=100-sh.reduce(function(a,b){return a+b},0);
+var pw=[612,344,221,134,97,76].map(function(x){return Math.round(x*f*(.8+r()*.4)*tot/1284/f*f)});pw.sort(function(a,b){return b-a});
+var clics=Math.round(tot*.075),dem=Math.round(tot*.018),avis=Math.round(tot*.007),ct=Math.round(tot*.032),ev=Math.round(tot*.026);
+return{d:d,tot:tot,sh:sh,pw:pw,clics:clics,dem:dem,avis:avis,ct:ct,ev:ev}}
+var DATA=MOIS.map(function(_,i){return gen(i)});
+var PN=['Accueil','Ateliers','Nos créations',"Livre d'or",'Contact','Événements'];
+function fmt(n){return String(n).replace(/\B(?=(\d{3})+(?!\d))/g,'\u202f')}
+function area(d,mois){var W=700,H=260,p=28,mx=Math.ceil(Math.max.apply(null,d)/20)*20+20;
 var pts=d.map(function(v,i){return[p+i*(W-2*p)/(d.length-1),H-p-v/mx*(H-2*p)]});
 var line=pts.map(function(q,i){return(i?'L':'M')+q[0].toFixed(1)+' '+q[1].toFixed(1)}).join(' ');
-var g='';[0,20,40,60,80].forEach(function(t){var y=H-p-t/mx*(H-2*p);g+='<line x1="'+p+'" x2="'+(W-p)+'" y1="'+y+'" y2="'+y+'" stroke="var(--line)"/><text x="0" y="'+(y+4)+'" font-size="11" fill="var(--mut)">'+t+'</text>'});
-[0,9,19,29].forEach(function(i){g+='<text x="'+pts[i][0]+'" y="'+(H-6)+'" font-size="11" fill="var(--mut)" text-anchor="middle">'+(i+1)+' nov.</text>'});
-document.getElementById('area').innerHTML='<defs><linearGradient id="gr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--s1)" stop-opacity=".35"/><stop offset="1" stop-color="var(--s1)" stop-opacity="0"/></linearGradient></defs>'+g+'<path d="'+line+' L'+pts[29][0]+' '+(H-p)+' L'+pts[0][0]+' '+(H-p)+'Z" fill="url(#gr)"/><path d="'+line+'" fill="none" stroke="var(--s1)" stroke-width="2.5"/>';
-var src=[['Recherche Google',46,'var(--s1)'],['Instagram',24,'var(--s2)'],['Direct',18,'var(--s3)'],['Autres sites',12,'var(--s4)']];
-var a=-Math.PI/2,s='',L='';
-src.forEach(function(x){var b=a+x[1]/100*2*Math.PI,r=80,ri=52,c=100;var l=x[1]>50?1:0;
-s+='<path d="M'+(c+r*Math.cos(a))+' '+(c+r*Math.sin(a))+' A'+r+' '+r+' 0 '+l+' 1 '+(c+r*Math.cos(b))+' '+(c+r*Math.sin(b))+' L'+(c+ri*Math.cos(b))+' '+(c+ri*Math.sin(b))+' A'+ri+' '+ri+' 0 '+l+' 0 '+(c+ri*Math.cos(a))+' '+(c+ri*Math.sin(a))+'Z" fill="'+x[2]+'" stroke="var(--card)" stroke-width="2"/>';
-L+='<span><i style="background:'+x[2]+'"></i>'+x[0]+'<b>'+x[1]+' %</b></span>';a=b});
-document.getElementById('donut').innerHTML=s;document.getElementById('leg').innerHTML=L;
-function bars(id,arr){var m=arr[0][1];document.getElementById(id).innerHTML=arr.map(function(x){return'<div class="bar"><span>'+x[0]+'</span><div class="t"><div style="width:'+(x[1]/m*100)+'%"></div></div><span>'+x[1]+'</span></div>'}).join('')}
-bars('pages',[['Accueil',612],['Ateliers',344],['Nos créations',221],['Livre d\'or',134],['Contact',97],['Événements',76]]);
-bars('acts',[['Clics Demander un atelier',96],['Demandes envoyées',23],['Clics Contact',41],['Avis envoyés',9],['Clics Événements',33]]);
+var g='';for(var t=0;t<=mx;t+=20){var y=H-p-t/mx*(H-2*p);g+='<line x1="'+p+'" x2="'+(W-p)+'" y1="'+y+'" y2="'+y+'" stroke="var(--line)"/><text x="0" y="'+(y+4)+'" font-size="11" fill="var(--mut)">'+t+'</text>'}
+var last=d.length-1;[0,Math.floor(last/3),Math.floor(2*last/3),last].forEach(function(i){g+='<text x="'+pts[i][0]+'" y="'+(H-6)+'" font-size="11" fill="var(--mut)" text-anchor="middle">'+(i+1)+'</text>'});
+document.getElementById('area').innerHTML='<defs><linearGradient id="gr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--s1)" stop-opacity=".35"/><stop offset="1" stop-color="var(--s1)" stop-opacity="0"/></linearGradient></defs>'+g+'<path d="'+line+' L'+pts[last][0]+' '+(H-p)+' L'+pts[0][0]+' '+(H-p)+'Z" fill="url(#gr)"/><path d="'+line+'" fill="none" stroke="var(--s1)" stroke-width="2.5"/>'}
+function donut(sh){var src=[['Recherche Google','var(--s1)'],['Instagram','var(--s2)'],['Direct','var(--s3)'],['Autres sites','var(--s4)']];var a=-Math.PI/2,s='',L='';
+src.forEach(function(x,i){var b=a+sh[i]/100*2*Math.PI,r=80,ri=52,c=100,l=sh[i]>50?1:0;
+s+='<path d="M'+(c+r*Math.cos(a))+' '+(c+r*Math.sin(a))+' A'+r+' '+r+' 0 '+l+' 1 '+(c+r*Math.cos(b))+' '+(c+r*Math.sin(b))+' L'+(c+ri*Math.cos(b))+' '+(c+ri*Math.sin(b))+' A'+ri+' '+ri+' 0 '+l+' 0 '+(c+ri*Math.cos(a))+' '+(c+ri*Math.sin(a))+'Z" fill="'+x[1]+'" stroke="var(--card)" stroke-width="2"/>';
+L+='<span><i style="background:'+x[1]+'"></i>'+x[0]+'<b>'+sh[i]+' %</b></span>';a=b});
+document.getElementById('donut').innerHTML=s;document.getElementById('leg').innerHTML=L}
+function bars(id,arr){var m=arr[0][1];document.getElementById(id).innerHTML=arr.map(function(x){return'<div class="bar"><span>'+x[0]+'</span><div class="t"><div style="width:'+(x[1]/m*100)+'%"></div></div><span>'+fmt(x[1])+'</span></div>'}).join('')}
+function delta(v,p){if(p==null)return'';var dd=v-p;if(p>0&&v>=20){var pc=Math.round(dd/p*100);return(pc>=0?'+':'')+pc+' % vs mois précédent'}return(dd>=0?'+':'')+dd+' vs mois précédent'}
+function show(m){var D=DATA[m],P=m>0?DATA[m-1]:null;
+[[D.tot,P&&P.tot],[D.dem,P&&P.dem],[D.clics,P&&P.clics],[D.avis,P&&P.avis]].forEach(function(x,i){document.getElementById('k'+i).textContent=fmt(x[0]);document.getElementById('d'+i).textContent=delta(x[0],x[1])||'Premier mois suivi'});
+area(D.d);donut(D.sh);
+bars('pages',D.pw.map(function(v,i){return[PN[i],v]}));
+bars('acts',[['Clics Demander un atelier',D.clics],['Clics Contact',D.ct],['Clics Événements',D.ev],['Demandes envoyées',D.dem],['Avis envoyés',D.avis]].sort(function(a,b){return b[1]-a[1]}))}
+var sel=document.getElementById('mois');
+MOIS.forEach(function(x,i){var o=document.createElement('option');o.value=i;o.textContent=x[0];sel.appendChild(o)});
+sel.value=MOIS.length-1;sel.onchange=function(){show(+sel.value)};show(MOIS.length-1);
 </script>
+
 </body></html>
