@@ -1,6 +1,7 @@
 # Néotisse : tout le site peut être indexé, sauf l'ancienne entrée de l'espace membres
 User-agent: *
 Disallow: /admin/
+Disallow: /statistiques-demo/
 
 # Plan du site (adresse Netlify actuelle ; à changer si le site prend un nom de domaine)
 Sitemap: https://neotissevb.netlify.app/sitemap.xml
