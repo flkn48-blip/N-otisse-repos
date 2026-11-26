@@ -6,10 +6,12 @@
 /livre-dor/*     /#livre-dor    301!
 /contact/*       /#contact      301!
 
-# Adresse directe vers l'espace de gestion des contenus (Studio Sanity) : redirection temporaire, jamais mise en cache.
-/admin           https://neotisse.sanity.studio   302!
-/admin/*         https://neotisse.sanity.studio   302!
-/gestion         https://neotisse.sanity.studio   302!
+# Espace de gestion du site (avis et statistiques), page /espace/ protégée par mot de passe.
+# Les anciennes adresses /admin et /statistiques y mènent (redirection temporaire, jamais mise en cache).
+/admin           /espace/#avis          302!
+/admin/*         /espace/#avis          302!
+/statistiques    /espace/#statistiques  302!
 
-# Tableau de bord des statistiques (Looker Studio) : accès réservé aux comptes Google invités au rapport.
-/statistiques    https://lookerstudio.google.com/reporting/1fea169f-450d-480b-9201-3beee3e65191   302!
+# Accès de secours (non affichés sur le site) : Studio Sanity et rapport Looker Studio.
+/gestion         https://neotisse.sanity.studio   302!
+/looker          https://lookerstudio.google.com/reporting/1fea169f-450d-480b-9201-3beee3e65191   302!

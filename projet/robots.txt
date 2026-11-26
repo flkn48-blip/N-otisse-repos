@@ -2,6 +2,7 @@
 User-agent: *
 Disallow: /admin/
 Disallow: /statistiques-demo/
+Disallow: /espace/
 
 # Plan du site (adresse Netlify actuelle ; à changer si le site prend un nom de domaine)
 Sitemap: https://neotissevb.netlify.app/sitemap.xml
