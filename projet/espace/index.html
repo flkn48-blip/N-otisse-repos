@@ -36,6 +36,15 @@ svg{width:100%;height:auto;display:block}
 .bar span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .bar span:last-child{text-align:right}
 select{font:inherit;font-size:14px;color:var(--accent);background:var(--card);border:1px solid var(--line);padding:7px 12px;cursor:pointer}
+.bascule{display:inline-flex;border:1px solid var(--line);background:#fff}
+.bascule button{font:inherit;font-size:13px;font-weight:600;background:none;border:0;padding:8px 14px;cursor:pointer;color:var(--mut)}
+.bascule button[aria-pressed="true"]{background:var(--accent);color:#fff}
+.entete-stats{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.entete-stats .droite{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.zone-courbe{position:relative}
+#area{touch-action:pan-y;cursor:crosshair}
+#tip{position:absolute;pointer-events:none;background:var(--fg);color:#fff;font-size:12px;padding:6px 10px;white-space:nowrap;transform:translate(-50%,-120%);z-index:2}
+#tip b{display:block;font-size:14px}
 .bandeau{background:var(--warnbg);color:var(--warn);padding:10px 14px;font-size:13px}
 .erreur{background:var(--nobg);color:var(--no);padding:10px 14px;font-size:14px}
 /* connexion */
@@ -95,9 +104,15 @@ input[type=password]{width:100%;font:inherit;padding:11px 12px;border:1px solid 
   </section>
 
   <section id="p-statistiques" hidden>
-    <div class="top" style="margin-bottom:14px">
-      <div class="sub" id="maj"></div>
-      <label class="sub">Mois <select id="mois"></select></label>
+    <div class="entete-stats">
+      <div class="bascule" role="group" aria-label="Type de données">
+        <button type="button" id="b-reel" aria-pressed="true">Données réelles</button>
+        <button type="button" id="b-demo" aria-pressed="false">Démonstration</button>
+      </div>
+      <div class="droite">
+        <span class="sub" id="maj"></span>
+        <label class="sub">Mois <select id="mois"></select></label>
+      </div>
     </div>
     <div class="bandeau" id="bandeau" hidden style="margin-bottom:14px"></div>
     <div class="erreur" id="err-stats" hidden style="margin-bottom:14px"></div>
@@ -109,7 +124,7 @@ input[type=password]{width:100%;font:inherit;padding:11px 12px;border:1px solid 
       <div class="card"><h2><span class="live"></span>En ce moment</h2><div class="big" id="k4">–</div><div class="delta" id="d4">visiteurs actifs (30 dernières minutes)</div></div>
     </div>
     <div class="grid row" style="margin-top:18px">
-      <div class="card"><h2>Visites par jour</h2><svg id="area" viewBox="0 0 700 260"></svg></div>
+      <div class="card"><h2>Visites par jour</h2><div class="zone-courbe"><svg id="area" viewBox="0 0 700 260"></svg><div id="tip" hidden></div></div></div>
       <div class="card"><h2>Sources du trafic</h2><svg id="donut" viewBox="0 0 200 200" style="max-width:220px;margin:auto"></svg><div class="leg" id="leg"></div></div>
     </div>
     <div class="grid row2" style="margin-top:18px">
@@ -190,24 +205,40 @@ function demo(mois){var y=+mois.slice(0,4),m=+mois.slice(5,7),idx=Math.max(0,Mat
  pages:[['Accueil',.49],['Mentions légales',.08],['Politique de confidentialité',.05],['Gestion des cookies',.03]].map(function(x){return{n:x[0],v:Math.round(tot*x[1])}}),
  kpi:{visites:tot,demandes:Math.round(tot*.018),clics:Math.round(tot*.075),avis:Math.round(tot*.007),contact:Math.round(tot*.032),evenements:Math.round(tot*.026)},
  precedent:null,tempsReel:3}}
-function chargerStats(){dire($('err-stats'),'');var mois=sel.value;
+var MODE='reel';
+function majBascule(){$('b-reel').setAttribute('aria-pressed',MODE==='reel'?'true':'false');$('b-demo').setAttribute('aria-pressed',MODE==='demo'?'true':'false')}
+$('b-reel').addEventListener('click',function(){MODE='reel';majBascule();chargerStats()});
+$('b-demo').addEventListener('click',function(){MODE='demo';majBascule();chargerStats()});
+function vide(mois){var n=new Date(+mois.slice(0,4),+mois.slice(5,7),0).getDate(),z=[];for(var i=0;i<n;i++)z.push(0);return{jours:z,sources:[],pages:[],kpi:{visites:0,demandes:0,clics:0,avis:0,contact:0,evenements:0},precedent:null,tempsReel:0}}
+function chargerStats(){dire($('err-stats'),'');var mois=sel.value,b=$('bandeau');
+ if(MODE==='demo'){b.hidden=false;b.textContent='Données de démonstration (fictives) : elles montrent à quoi ressemblera le tableau de bord. Cliquez sur « Données réelles » pour revenir aux vrais chiffres.';dessinerStats(demo(mois));$('maj').textContent='Démonstration';return}
  api('stats',{q:'&mois='+mois}).then(function(j){if(expire(j))return;
-  if(j.ok&&j.configure){$('bandeau').hidden=true;dessinerStats(j,true);$('maj').textContent='Mis à jour à '+new Date(j.maj).toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});return}
-  if(j.ok&&!j.configure){$('bandeau').hidden=false;$('bandeau').textContent='Les statistiques réelles ne sont pas encore connectées : les chiffres ci-dessous sont des données de démonstration (fictives).';dessinerStats(demo(mois),false);$('maj').textContent='Démonstration';return}
+  if(j.ok&&j.configure){b.hidden=true;dessinerStats(j);$('maj').textContent='Mis à jour à '+new Date(j.maj).toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});return}
+  if(j.ok&&!j.configure){b.hidden=false;b.textContent='Les statistiques réelles ne sont pas encore connectées. Cliquez sur « Démonstration » pour voir un exemple de rendu.';dessinerStats(vide(mois));$('maj').textContent='';return}
   dire($('err-stats'),(j.message||'Statistiques indisponibles.')+(j.detail?' ('+j.detail+')':''))}).catch(function(){dire($('err-stats'),'Statistiques indisponibles pour le moment.')})}
 function delta(v,p){if(p==null)return'';var d=v-p;if(p>=20&&v>=20){var pc=Math.round(d/p*100);return(pc>=0?'+':'')+pc+' % vs mois précédent'}return(d>=0?'+':'')+d+' vs mois précédent'}
-function dessinerStats(S,reel){var P=S.precedent,K=S.kpi;
+function dessinerStats(S){var P=S.precedent,K=S.kpi;
  [['visites','k0','d0'],['demandes','k1','d1'],['clics','k2','d2'],['avis','k3','d3']].forEach(function(x){$(x[1]).textContent=fmt(K[x[0]]);$(x[2]).textContent=P?delta(K[x[0]],P[x[0]]):''});
  $('k4').textContent=fmt(S.tempsReel||0);
- aire(S.jours);donut(S.sources);
+ aire(S.jours,sel.value);donut(S.sources);
  barres('pages',S.pages.map(function(p){return[p.n,p.v]}));
  barres('acts',[['Clics Demander un atelier',K.clics],['Clics Contact',K.contact],['Clics Événements',K.evenements],['Demandes envoyées',K.demandes],['Avis envoyés',K.avis]].sort(function(a,b){return b[1]-a[1]}))}
-function aire(d){var W=700,H=260,p=28,mx=Math.max(20,Math.ceil(Math.max.apply(null,d)/20)*20+(Math.max.apply(null,d)>=20?20:0)),n=d.length;
+function aire(d,mois){var W=700,H=260,p=28,mx=Math.max(20,Math.ceil(Math.max.apply(null,d)/20)*20+(Math.max.apply(null,d)>=20?20:0)),n=d.length;
  var pts=d.map(function(v,i){return[p+i*(W-2*p)/Math.max(1,n-1),H-p-v/mx*(H-2*p)]});
  var line=pts.map(function(q,i){return(i?'L':'M')+q[0].toFixed(1)+' '+q[1].toFixed(1)}).join(' '),g='';
  var pas=mx<=40?10:20;for(var t=0;t<=mx;t+=pas){var y=H-p-t/mx*(H-2*p);g+='<line x1="'+p+'" x2="'+(W-p)+'" y1="'+y+'" y2="'+y+'" stroke="var(--line)"/><text x="0" y="'+(y+4)+'" font-size="11" fill="var(--mut)">'+t+'</text>'}
  var last=n-1;[0,Math.floor(last/3),Math.floor(2*last/3),last].forEach(function(i){g+='<text x="'+pts[i][0]+'" y="'+(H-6)+'" font-size="11" fill="var(--mut)" text-anchor="middle">'+(i+1)+'</text>'});
- $('area').innerHTML='<defs><linearGradient id="gr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--s1)" stop-opacity=".35"/><stop offset="1" stop-color="var(--s1)" stop-opacity="0"/></linearGradient></defs>'+g+'<path d="'+line+' L'+pts[last][0]+' '+(H-p)+' L'+pts[0][0]+' '+(H-p)+'Z" fill="url(#gr)"/><path d="'+line+'" fill="none" stroke="var(--s1)" stroke-width="2.5"/>'}
+ var pastilles=pts.map(function(q){return'<circle cx="'+q[0].toFixed(1)+'" cy="'+q[1].toFixed(1)+'" r="2.6" fill="var(--s1)"/>'}).join('');
+ var svg=$('area');
+ svg.innerHTML='<defs><linearGradient id="gr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--s1)" stop-opacity=".35"/><stop offset="1" stop-color="var(--s1)" stop-opacity="0"/></linearGradient></defs>'+g+'<path d="'+line+' L'+pts[last][0]+' '+(H-p)+' L'+pts[0][0]+' '+(H-p)+'Z" fill="url(#gr)"/><path d="'+line+'" fill="none" stroke="var(--s1)" stroke-width="2.5"/>'+pastilles+'<line id="reperev" x1="0" x2="0" y1="'+p+'" y2="'+(H-p)+'" stroke="var(--s1)" stroke-opacity=".35" stroke-dasharray="3 3" visibility="hidden"/><circle id="reperep" r="6" fill="#fff" stroke="var(--s1)" stroke-width="3" visibility="hidden"/>';
+ var tip=$('tip'),rv=$('reperev'),rp=$('reperep'),A=+mois.slice(0,4),M=+mois.slice(5,7);
+ function montrerPoint(i){var date=new Date(A,M-1,i+1),txt=date.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  rv.setAttribute('x1',pts[i][0]);rv.setAttribute('x2',pts[i][0]);rv.setAttribute('visibility','visible');rp.setAttribute('cx',pts[i][0]);rp.setAttribute('cy',pts[i][1]);rp.setAttribute('visibility','visible');
+  var r=svg.getBoundingClientRect();tip.innerHTML='';var b=document.createElement('b');b.textContent=d[i]+(d[i]>1?' visites':' visite');tip.appendChild(document.createTextNode(txt.charAt(0).toUpperCase()+txt.slice(1)));tip.appendChild(b);
+  tip.style.left=(pts[i][0]/W*r.width)+'px';tip.style.top=(pts[i][1]/H*r.height)+'px';tip.hidden=false}
+ function cacher(){tip.hidden=true;rv.setAttribute('visibility','hidden');rp.setAttribute('visibility','hidden')}
+ function suivre(e){var r=svg.getBoundingClientRect(),x=(e.clientX-r.left)/r.width*W,i=Math.round((x-p)/(W-2*p)*(n-1));montrerPoint(Math.max(0,Math.min(n-1,i)))}
+ svg.onpointermove=suivre;svg.onpointerdown=suivre;svg.onpointerleave=cacher}
 function donut(src){var C=['var(--s1)','var(--s2)','var(--s3)','var(--s4)'],tot=src.reduce(function(a,x){return a+x.v},0);
  if(!tot){$('donut').innerHTML='<circle cx="100" cy="100" r="66" fill="none" stroke="var(--line)" stroke-width="28"/>';$('leg').innerHTML='<span>Aucune donnée sur ce mois</span>';return}
  var a=-Math.PI/2,s='',L='';src.slice(0,4).forEach(function(x,i){var f=x.v/tot,b=a+f*2*Math.PI;if(f>=.9999)b=a+2*Math.PI-.0001;var r=80,ri=52,c=100,l=f>.5?1:0;
